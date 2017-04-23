@@ -1,0 +1,27 @@
+machine:
+    timezone: Asia/Tokyo
+    services:
+        - docker
+
+test:
+    override:
+        # before test
+        - docker build -t ceron-analyze-dev -f Dockerfile-dev .
+        - docker run -d --name s3 -e MINIO_ACCESS_KEY=s3_access -e MINIO_SECRET_KEY=s3_secret minio/minio:edge server /export
+        - docker run --rm --link s3:s3 -e AWS_ACCESS_KEY_ID=s3_access -e AWS_SECRET_ACCESS_KEY=s3_secret -e AWS_DEFAULT_REGION=us-east-1 garland/aws-cli-docker aws --endpoint-url http://s3:9000 s3 mb s3://ceron
+        # testing
+        - docker run --rm --link s3:s3 -e S3_URL=http://s3:9000/ -e S3_BUCKET=ceron -e S3_ACCESS-ID=s3_access -e S3_SECRET-KEY=s3_secret -v $(pwd):/var/my-app ceron-analyze-dev
+        # after test
+        - docker build -t u6kapps/ceron-analyze .
+        - docker kill s3
+    post:
+        - cp -r target/surefire-reports/* $CIRCLE_TEST_REPORTS/
+        - cp -r target/* $CIRCLE_ARTIFACTS/
+
+deployment:
+    release:
+        tag: /.+/
+        commands:
+            - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+            - docker tag u6kapps/ceron-analyze u6kapps/ceron-analyze:$CIRCLE_TAG
+            - docker push u6kapps/ceron-analyze
