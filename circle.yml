@@ -10,9 +10,10 @@ test:
         - docker run -d --name s3 -e MINIO_ACCESS_KEY=s3_access -e MINIO_SECRET_KEY=s3_secret minio/minio:edge server /export
         - docker run --rm --link s3:s3 -e AWS_ACCESS_KEY_ID=s3_access -e AWS_SECRET_ACCESS_KEY=s3_secret -e AWS_DEFAULT_REGION=us-east-1 garland/aws-cli-docker aws --endpoint-url http://s3:9000 s3 mb s3://ceron
         # testing
-        - docker run --rm --link s3:s3 -e S3_URL=http://s3:9000/ -e S3_BUCKET=ceron -e S3_ACCESS-ID=s3_access -e S3_SECRET-KEY=s3_secret -v $(pwd):/var/my-app ceron-analyze-dev
+        - docker run --name ceron-analyze-dev --rm --link s3:s3 -e S3_URL=http://s3:9000/ -e S3_BUCKET=ceron -e S3_ACCESS-ID=s3_access -e S3_SECRET-KEY=s3_secret -v $(pwd):/var/my-app ceron-analyze-dev
         # after test
         - docker kill s3
+        - docker rm ceron-analyze-dev
         - docker rmi ceron-analyze-dev
         - docker build -t u6kapps/ceron-analyze .
     post:
