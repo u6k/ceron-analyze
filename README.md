@@ -66,17 +66,33 @@ $ docker run \
     ceron-analyze-dev mvn eclipse:eclipse
 ```
 
-### テスト実行、パッケージング
+### ビルド
 
-TODO
+テスト実行し、jarファイルをパッケージングします。
 
-### 実行環境を構築
+```
+$ docker run \
+    --rm \
+    -v $HOME/.m2:/root/.m2 \
+    -v $(pwd):/var/my-app \
+    ceron-analyze-dev
+```
 
-TODO
+実行用Dockerイメージを作成します。
+
+```
+$ docker build -t u6kapps/ceron-analyze .
+```
 
 ### 起動
 
-TODO
+```
+$ docker run \
+    -d \
+    --name ceron-analyze \
+    -p 8080:8080 \
+    u6kapps/ceron-analyze
+```
 
 ## Author
 
