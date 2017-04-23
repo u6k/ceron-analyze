@@ -1,6 +1,8 @@
 
 package me.u6k.ceron_analyze.util;
 
+import java.util.List;
+
 import com.amazonaws.ClientConfiguration;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
@@ -8,6 +10,7 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.client.builder.AwsClientBuilder.EndpointConfiguration;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.S3ObjectSummary;
 import me.u6k.ceron_analyze.service.CrawlerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,6 +53,15 @@ public class S3Util {
         int count = this.s3.listObjects(this.s3bucket).getObjectSummaries().size();
 
         return count;
+    }
+
+    public void deleteAllObject() {
+        this.init();
+
+        List<S3ObjectSummary> summaries = this.s3.listObjects(this.s3bucket).getObjectSummaries();
+        for (S3ObjectSummary summary : summaries) {
+            this.s3.deleteObject(this.s3bucket, summary.getKey());
+        }
     }
 
     private synchronized void init() {

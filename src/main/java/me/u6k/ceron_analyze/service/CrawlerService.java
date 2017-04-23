@@ -55,8 +55,8 @@ public class CrawlerService {
     @Autowired
     private S3Util s3;
 
-    public void downloadAllCategory() {
-        L.info("#downloadAllCategory start");
+    public void downloadCategories() {
+        L.info("#downloadCategories start");
         try {
             for (int i = 0; i < CATEGORY_TITLES.length; i++) {
                 /*
