@@ -26,7 +26,14 @@ public class CrawlerServiceTest {
         this.service.downloadAllCategory();
 
         int count = this.s3.countObject();
-        assertThat(count, is(1));
+        assertThat(count, is(11));
+
+        Thread.sleep(10000);
+
+        this.service.downloadAllCategory();
+
+        count = this.s3.countObject();
+        assertThat(count, is(22));
     }
 
 }
