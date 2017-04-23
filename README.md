@@ -40,11 +40,13 @@ Server:
 
 ## Usage
 
-TODO
+### Ceronの全カテゴリーをダウンロード、S3ストレージに格納
 
-1. Usage
-2. Usage
-3. Usage
+```
+$ curl -v \
+    -X POST \
+    https://ceron-analyze.u6k.me/api/categories/download
+```
 
 ## Installation
 
@@ -115,13 +117,31 @@ $ docker build -t u6kapps/ceron-analyze .
 
 ### 起動
 
-TODO
+Minioコンテナを起動します。
 
 ```
 $ docker run \
     -d \
+    --restart=always \
+    --name s3 \
+    -v $HOME/docker-volumes/minio/export:/export \
+    -v $HOME/docker-volumes/minio/config:/root/.minio \
+    minio/minio:edge server /export
+```
+
+実行用Dockerイメージを起動します。
+
+```
+$ docker run \
+    -d \
+    --restart=always \
     --name ceron-analyze \
+    --link s3:s3 \
     -p 8080:8080 \
+    -e S3_URL=http://s3:9000/ \
+    -e S3_BUCKET=ceron \
+    -e S3_ACCESS-ID=xxx \
+    -e S3_SECRET-KEY=xxx \
     u6kapps/ceron-analyze
 ```
 
