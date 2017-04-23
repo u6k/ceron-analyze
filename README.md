@@ -48,6 +48,34 @@ TODO
 
 ## Installation
 
+### 開発環境を構築
+
+開発用Dockerイメージを作成します。
+
+```
+$ docker build -t ceron-analyze-dev -f Dockerfile-dev .
+```
+
+Mavenプロジェクトを作成します。
+
+```
+$ docker run \
+    --rm \
+    -v $HOME/.m2:/root/.m2 \
+    -v $(pwd):/var/my-app \
+    ceron-analyze-dev mvn eclipse:eclipse
+```
+
+### テスト実行、パッケージング
+
+TODO
+
+### 実行環境を構築
+
+TODO
+
+### 起動
+
 TODO
 
 ## Author
