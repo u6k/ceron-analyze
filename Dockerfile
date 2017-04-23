@@ -2,8 +2,7 @@ FROM openjdk:8-alpine
 MAINTAINER u6k.apps@gmail.com
 
 VOLUME /opt
-WORKDIR /opt
-COPY target/ceron-analyze.jar .
+COPY target/ceron-analyze.jar /opt/ceron-analyze.jar
 
 EXPOSE 8080
 
