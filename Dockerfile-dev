@@ -10,4 +10,6 @@ VOLUME /var/my-app
 WORKDIR /var/my-app
 
 # Setup docker run setting
+EXPOSE 8080
+
 CMD ["mvn", "clean", "package"]
