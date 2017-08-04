@@ -1,6 +1,9 @@
 # ceron-analyze
 
-![Badge Status](https://ci-as-a-service)
+[![CircleCI](https://img.shields.io/circleci/project/github/u6k/ceron-analyze.svg)](https://circleci.com/gh/u6k/ceron-analyze)
+[![license](https://img.shields.io/github/license/u6k/ceron-analyze.svg)](https://github.com/u6k/ceron-analyze/blob/master/LICENSE)
+[![GitHub tag](https://img.shields.io/github/tag/u6k/ceron-analyze.svg)](https://github.com/u6k/ceron-analyze/releases)
+[![Docker Pulls](https://img.shields.io/docker/pulls/u6kapps/ceron-analyze.svg)](https://hub.docker.com/r/u6kapps/ceron-analyze/)
 
 現在、流行している記事を把握するため、Ceronをキャッシュ・分析します。
 
