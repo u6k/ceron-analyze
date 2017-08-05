@@ -66,8 +66,8 @@ Mavenプロジェクトを作成します。
 ```
 $ docker run \
     --rm \
-    -v $HOME/.m2:/root/.m2 \
-    -v $(pwd):/var/my-app \
+    -v "${HOME}/.m2:/root/.m2" \
+    -v "${PWD}:/var/my-app" \
     ceron-analyze-dev mvn eclipse:eclipse
 ```
 
@@ -79,9 +79,9 @@ Minioコンテナを起動します。
 $ docker run \
     -d \
     --name s3 \
-    -e MINIO_ACCESS_KEY=s3_access \
-    -e MINIO_SECRET_KEY=s3_secret \
-    u6kapps/minio server /export
+    -e "MINIO_ACCESS_KEY=s3_access" \
+    -e "MINIO_SECRET_KEY=s3_secret" \
+    minio/minio server /export
 ```
 
 `ceron`バケットを作成しておきます。
@@ -90,9 +90,9 @@ $ docker run \
 $ docker run \
     --rm \
     --link s3:s3 \
-    -e AWS_ACCESS_KEY_ID=s3_access \
-    -e AWS_SECRET_ACCESS_KEY=s3_secret \
-    -e AWS_DEFAULT_REGION=us-east-1 \
+    -e "AWS_ACCESS_KEY_ID=s3_access" \
+    -e "AWS_SECRET_ACCESS_KEY=s3_secret" \
+    -e "AWS_DEFAULT_REGION=us-east-1" \
     garland/aws-cli-docker \
         aws --endpoint-url http://s3:9000 s3 mb s3://ceron
 ```
@@ -103,12 +103,12 @@ $ docker run \
 $ docker run \
     --rm \
     --link s3:s3 \
-    -e S3_URL=http://s3:9000/ \
-    -e S3_BUCKET=ceron \
-    -v $HOME/.m2:/root/.m2 \
-    -v $(pwd):/var/my-app \
+    -e "S3_URL=http://s3:9000/" \
+    -e "S3_BUCKET=ceron" \
     -e "S3_ACCESS_ID=s3_access" \
     -e "S3_SECRET_KEY=s3_secret" \
+    -v "${HOME}/.m2:/root/.m2" \
+    -v "${PWD}:/var/my-app" \
     ceron-analyze-dev
 ```
 
