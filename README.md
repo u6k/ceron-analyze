@@ -1,6 +1,9 @@
 # ceron-analyze
 
-![Badge Status](https://ci-as-a-service)
+[![CircleCI](https://img.shields.io/circleci/project/github/u6k/ceron-analyze.svg)](https://circleci.com/gh/u6k/ceron-analyze)
+[![license](https://img.shields.io/github/license/u6k/ceron-analyze.svg)](https://github.com/u6k/ceron-analyze/blob/master/LICENSE)
+[![GitHub tag](https://img.shields.io/github/tag/u6k/ceron-analyze.svg)](https://github.com/u6k/ceron-analyze/releases)
+[![Docker Pulls](https://img.shields.io/docker/pulls/u6kapps/ceron-analyze.svg)](https://hub.docker.com/r/u6kapps/ceron-analyze/)
 
 現在、流行している記事を把握するため、Ceronをキャッシュ・分析します。
 
@@ -63,8 +66,8 @@ Mavenプロジェクトを作成します。
 ```
 $ docker run \
     --rm \
-    -v $HOME/.m2:/root/.m2 \
-    -v $(pwd):/var/my-app \
+    -v "${HOME}/.m2:/root/.m2" \
+    -v "${PWD}:/var/my-app" \
     ceron-analyze-dev mvn eclipse:eclipse
 ```
 
@@ -76,9 +79,9 @@ Minioコンテナを起動します。
 $ docker run \
     -d \
     --name s3 \
-    -e MINIO_ACCESS_KEY=s3_access \
-    -e MINIO_SECRET_KEY=s3_secret \
-    minio/minio:edge server /export
+    -e "MINIO_ACCESS_KEY=s3_access" \
+    -e "MINIO_SECRET_KEY=s3_secret" \
+    minio/minio server /export
 ```
 
 `ceron`バケットを作成しておきます。
@@ -87,9 +90,9 @@ $ docker run \
 $ docker run \
     --rm \
     --link s3:s3 \
-    -e AWS_ACCESS_KEY_ID=s3_access \
-    -e AWS_SECRET_ACCESS_KEY=s3_secret \
-    -e AWS_DEFAULT_REGION=us-east-1 \
+    -e "AWS_ACCESS_KEY_ID=s3_access" \
+    -e "AWS_SECRET_ACCESS_KEY=s3_secret" \
+    -e "AWS_DEFAULT_REGION=us-east-1" \
     garland/aws-cli-docker \
         aws --endpoint-url http://s3:9000 s3 mb s3://ceron
 ```
@@ -100,12 +103,12 @@ $ docker run \
 $ docker run \
     --rm \
     --link s3:s3 \
-    -e S3_URL=http://s3:9000/ \
-    -e S3_BUCKET=ceron \
-    -e S3_ACCESS-ID=s3_access \
-    -e S3_SECRET-KEY=s3_secret \
-    -v $HOME/.m2:/root/.m2 \
-    -v $(pwd):/var/my-app \
+    -e "S3_URL=http://s3:9000/" \
+    -e "S3_BUCKET=ceron" \
+    -e "S3_ACCESS_ID=s3_access" \
+    -e "S3_SECRET_KEY=s3_secret" \
+    -v "${HOME}/.m2:/root/.m2" \
+    -v "${PWD}:/var/my-app" \
     ceron-analyze-dev
 ```
 
@@ -117,32 +120,10 @@ $ docker build -t u6kapps/ceron-analyze .
 
 ### 起動
 
-Minioコンテナを起動します。
-
-```
-$ docker run \
-    -d \
-    --restart=always \
-    --name s3 \
-    -v $HOME/docker-volumes/minio/export:/export \
-    -v $HOME/docker-volumes/minio/config:/root/.minio \
-    minio/minio:edge server /export
-```
-
 実行用Dockerイメージを起動します。
 
 ```
-$ docker run \
-    -d \
-    --restart=always \
-    --name ceron-analyze \
-    --link s3:s3 \
-    -p 8080:8080 \
-    -e S3_URL=http://s3:9000/ \
-    -e S3_BUCKET=ceron \
-    -e S3_ACCESS-ID=xxx \
-    -e S3_SECRET-KEY=xxx \
-    u6kapps/ceron-analyze
+$ docker-compose up -d
 ```
 
 ## Author
