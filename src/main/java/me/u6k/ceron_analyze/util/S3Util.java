@@ -25,10 +25,10 @@ public class S3Util {
     @Value("${s3.url}")
     private String s3url;
 
-    @Value("${s3.access-id}")
+    @Value("${s3.access_id}")
     private String s3accessId;
 
-    @Value("${s3.secret-key}")
+    @Value("${s3.secret_key}")
     private String s3secretKey;
 
     @Value("${s3.bucket}")

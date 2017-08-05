@@ -105,10 +105,10 @@ $ docker run \
     --link s3:s3 \
     -e S3_URL=http://s3:9000/ \
     -e S3_BUCKET=ceron \
-    -e S3_ACCESS-ID=s3_access \
-    -e S3_SECRET-KEY=s3_secret \
     -v $HOME/.m2:/root/.m2 \
     -v $(pwd):/var/my-app \
+    -e "S3_ACCESS_ID=s3_access" \
+    -e "S3_SECRET_KEY=s3_secret" \
     ceron-analyze-dev
 ```
 
