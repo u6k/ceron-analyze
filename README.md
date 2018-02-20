@@ -1,9 +1,9 @@
 # ceron-analyze
 
-[![CircleCI](https://img.shields.io/circleci/project/github/u6k/ceron-analyze.svg)](https://circleci.com/gh/u6k/ceron-analyze)
+[![Travis](https://img.shields.io/travis/u6k/ceron-analyze.svg)](https://travis-ci.org/u6k/ceron-analyze)
+[![GitHub release](https://img.shields.io/github/release/u6k/ceron-analyze.svg)](https://github.com/u6k/ceron-analyze/releases)
 [![license](https://img.shields.io/github/license/u6k/ceron-analyze.svg)](https://github.com/u6k/ceron-analyze/blob/master/LICENSE)
-[![GitHub tag](https://img.shields.io/github/tag/u6k/ceron-analyze.svg)](https://github.com/u6k/ceron-analyze/releases)
-[![Docker Pulls](https://img.shields.io/docker/pulls/u6kapps/ceron-analyze.svg)](https://hub.docker.com/r/u6kapps/ceron-analyze/)
+[![Docker Stars](https://img.shields.io/docker/stars/u6kapps/ceron-analyze.svg)](https://hub.docker.com/r/u6kapps/ceron-analyze/)
 
 現在、流行している記事を把握するため、Ceronをキャッシュ・分析します。
 
