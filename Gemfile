@@ -15,6 +15,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'okcomputer'
 gem 'aws-sdk-s3'
 gem 'seven_zip_ruby'
+gem 'config'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
