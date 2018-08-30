@@ -47,25 +47,19 @@ class FeedPage
     doc = Nokogiri::HTML.parse(@content, nil, "UTF-8")
 
     title = nil
-    doc.xpath("//h1[@class='page_title']") do |h1|
+    doc.xpath("//h1[@class='page_title']").each do |h1|
       title = h1.text.strip
     end
 
     raise "title not match" if @title != title
 
-    @feeds = doc.xpath("//div[@class='item_status']").map do |div|
-      feed = {}
+    @feeds = doc.xpath("//div[@class='item_status']/span[contains(@class, 'link_num')]").map do |span|
+      { comment_number: span.text.strip.to_i }
+    end
 
-      div.xpath("span[contains(@class, 'link_num')]").each do |span|
-        feed[:comment_number] = span.text.strip.to_i
-      end
-
-      div.xpath("div[@class='item_title']/a").each do |a|
-        feed[:path] = a[:href]
-        feed[:title] = a.text.strip
-      end
-
-      feed
+    doc.xpath("//div[@class='item_title']/a").each.with_index do |a, index|
+      @feeds[index][:path] = a[:href]
+      @feeds[index][:title] = a.text.strip
     end
   end
 
