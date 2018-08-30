@@ -14,17 +14,17 @@ class FeedPageTest < ActiveSupport::TestCase
     # check
     assert_equal 11, feed_pages.length
 
-    assert_empty_feed_page feed_pages[0], "all", "総合"
-    assert_empty_feed_page feed_pages[1], "society", "政治経済"
-    assert_empty_feed_page feed_pages[2], "entertainment", "エンタメ"
-    assert_empty_feed_page feed_pages[3], "sports", "スポーツ"
-    assert_empty_feed_page feed_pages[4], "itnews", "IT"
-    assert_empty_feed_page feed_pages[5], "international", "海外"
-    assert_empty_feed_page feed_pages[6], "science", "科学"
-    assert_empty_feed_page feed_pages[7], "odekake", "おでかけ"
-    assert_empty_feed_page feed_pages[8], "2ch", "2ch"
-    assert_empty_feed_page feed_pages[9], "neta", "ネタ"
-    assert_empty_feed_page feed_pages[10], "movie", "動画"
+    assert_empty_feed_page feed_pages[0], "all"
+    assert_empty_feed_page feed_pages[1], "society"
+    assert_empty_feed_page feed_pages[2], "entertainment"
+    assert_empty_feed_page feed_pages[3], "sports"
+    assert_empty_feed_page feed_pages[4], "itnews"
+    assert_empty_feed_page feed_pages[5], "international"
+    assert_empty_feed_page feed_pages[6], "science"
+    assert_empty_feed_page feed_pages[7], "odekake"
+    assert_empty_feed_page feed_pages[8], "2ch"
+    assert_empty_feed_page feed_pages[9], "neta"
+    assert_empty_feed_page feed_pages[10], "movie"
 
     # execute - all page download
     feed_pages.each { |f| f.download_from_web! }
@@ -50,7 +50,7 @@ class FeedPageTest < ActiveSupport::TestCase
 
   test "download from s3" do
     # execute - download from web
-    feed_page = FeedPage.new("all", "総合")
+    feed_page = FeedPage.new("all")
     feed_page.download_from_web!
     feed_page.save!
 
@@ -58,7 +58,7 @@ class FeedPageTest < ActiveSupport::TestCase
     assert_feed_page feed_page, "all", "総合"
 
     # execute - download from s3
-    feed_page = FeedPage.new("all", "総合")
+    feed_page = FeedPage.new("all")
     feed_page.download_from_s3!
 
     # check
@@ -67,7 +67,7 @@ class FeedPageTest < ActiveSupport::TestCase
 
   test "parse" do
     # execute
-    feed_page = FeedPage.new("all", "総合", File.open("test/fixtures/files/all.html").read)
+    feed_page = FeedPage.new("all", File.open("test/fixtures/files/all.html").read)
 
     # check
     expected = [
@@ -409,9 +409,9 @@ class FeedPageTest < ActiveSupport::TestCase
     assert feed_page.valid?
   end
 
-  def assert_empty_feed_page(feed_page, type, title)
+  def assert_empty_feed_page(feed_page, type)
     assert_equal type, feed_page.type
-    assert_equal title, feed_page.title
+    assert_nil feed_page.title
     assert_nil feed_page.feeds
     assert_not feed_page.valid?
   end
