@@ -49,14 +49,8 @@ class FeedPageTest < ActiveSupport::TestCase
   end
 
   test "download from s3" do
-    # execute - download when s3 object not found
-    feed_page = FeedPage.new("all")
-    feed_page.download_from_s3!
-
-    # check
-    assert_empty_feed_page feed_page, "all", "総合"
-
-    # execute - download from web and save
+    # execute - download from web
+    feed_page = FeedPage.new("all", "総合")
     feed_page.download_from_web!
     feed_page.save!
 
@@ -64,7 +58,7 @@ class FeedPageTest < ActiveSupport::TestCase
     assert_feed_page feed_page, "all", "総合"
 
     # execute - download from s3
-    feed_page = FeedPage.new("all")
+    feed_page = FeedPage.new("all", "総合")
     feed_page.download_from_s3!
 
     # check

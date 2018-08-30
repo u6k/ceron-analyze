@@ -67,6 +67,8 @@ class FeedPage
       title = h1.text.strip
     end
 
+    pp @title # TODO
+    pp title # TODO
     raise "title not match" if @title != title
 
     @feeds = doc.xpath("//div[@class='item_status']/span[contains(@class, 'link_num')]").map do |span|
