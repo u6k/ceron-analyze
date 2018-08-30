@@ -3,6 +3,22 @@ class FeedPage
 
   attr_reader :type, :title, :feeds
 
+  def self.categories
+    [
+      FeedPage.new("all", "総合"),
+      FeedPage.new("society", "政治経済"),
+      FeedPage.new("entertainment", "エンタメ"),
+      FeedPage.new("sports", "スポーツ"),
+      FeedPage.new("itnews", "IT"),
+      FeedPage.new("international", "海外"),
+      FeedPage.new("science", "科学"),
+      FeedPage.new("odekake", "おでかけ"),
+      FeedPage.new("2ch", "2ch"),
+      FeedPage.new("neta", "ネタ"),
+      FeedPage.new("movie", "動画")
+    ]
+  end
+
   def initialize(type, title, content = nil)
     @type = type
     @title = title
