@@ -3,12 +3,12 @@ module NetModule
 
   def self.get_s3_bucket
     Aws.config.update({
-      region: Rails.application.secrets.s3_region,
-      credentials: Aws::Credentials.new(Rails.application.secrets.s3_access_key, Rails.application.secrets.s3_secret_key)
+      region: Settings.s3.region,
+      credentials: Aws::Credentials.new(Settings.s3.access_key, Settings.s3.secret_key)
     })
-    s3 = Aws::S3::Resource.new(endpoint: Rails.application.secrets.s3_endpoint, force_path_style: true)
+    s3 = Aws::S3::Resource.new(endpoint: Settings.s3.endpoint, force_path_style: Settings.s3.force_path_style)
 
-    bucket = s3.bucket(Rails.application.secrets.s3_bucket)
+    bucket = s3.bucket(Settings.s3.bucket)
   end
 
   def self.put_s3_object(bucket, file_name, data)
