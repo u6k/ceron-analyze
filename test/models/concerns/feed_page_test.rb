@@ -33,15 +33,15 @@ class FeedPageTest < ActiveSupport::TestCase
     assert_equal 11, feed_pages.length
 
     assert_feed_page feed_pages[0], "all", "総合"
-    assert_feed_page feed_pages[1], "society", "政治経済"
+    assert_feed_page feed_pages[1], "society", "政治・経済"
     assert_feed_page feed_pages[2], "entertainment", "エンタメ"
     assert_feed_page feed_pages[3], "sports", "スポーツ"
-    assert_feed_page feed_pages[4], "itnews", "IT"
-    assert_feed_page feed_pages[5], "international", "海外"
-    assert_feed_page feed_pages[6], "science", "科学"
-    assert_feed_page feed_pages[7], "odekake", "おでかけ"
-    assert_feed_page feed_pages[8], "2ch", "2ch"
-    assert_feed_page feed_pages[9], "neta", "ネタ"
+    assert_feed_page feed_pages[4], "itnews", "IT・テクノロジー"
+    assert_feed_page feed_pages[5], "international", "海外ニュース"
+    assert_feed_page feed_pages[6], "science", "科学・学問"
+    assert_feed_page feed_pages[7], "odekake", "おでかけ・イベント"
+    assert_feed_page feed_pages[8], "2ch", "2chまとめ"
+    assert_feed_page feed_pages[9], "neta", "ネタ・話題・トピック"
     assert_feed_page feed_pages[10], "movie", "動画"
 
     # execute - all page save
