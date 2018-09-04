@@ -1,5 +1,7 @@
 class FeedsController < ApplicationController
 
+  protect_from_forgery :except => [:download]
+
   def download
     Rails.logger.info "feeds#download: start"
 
