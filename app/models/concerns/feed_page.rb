@@ -12,7 +12,6 @@ class FeedPage
       FeedPage.new("itnews"),
       FeedPage.new("international"),
       FeedPage.new("science"),
-      FeedPage.new("odekake"),
       FeedPage.new("2ch"),
       FeedPage.new("neta"),
       FeedPage.new("movie")

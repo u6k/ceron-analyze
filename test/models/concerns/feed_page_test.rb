@@ -12,7 +12,7 @@ class FeedPageTest < ActiveSupport::TestCase
     feed_pages = FeedPage.categories
 
     # check
-    assert_equal 11, feed_pages.length
+    assert_equal 10, feed_pages.length
 
     assert_empty_feed_page feed_pages[0], "all"
     assert_empty_feed_page feed_pages[1], "society"
@@ -21,16 +21,15 @@ class FeedPageTest < ActiveSupport::TestCase
     assert_empty_feed_page feed_pages[4], "itnews"
     assert_empty_feed_page feed_pages[5], "international"
     assert_empty_feed_page feed_pages[6], "science"
-    assert_empty_feed_page feed_pages[7], "odekake"
-    assert_empty_feed_page feed_pages[8], "2ch"
-    assert_empty_feed_page feed_pages[9], "neta"
-    assert_empty_feed_page feed_pages[10], "movie"
+    assert_empty_feed_page feed_pages[7], "2ch"
+    assert_empty_feed_page feed_pages[8], "neta"
+    assert_empty_feed_page feed_pages[9], "movie"
 
     # execute - all page download
     feed_pages.each { |f| f.download_from_web! }
 
     # check
-    assert_equal 11, feed_pages.length
+    assert_equal 10, feed_pages.length
 
     assert_feed_page feed_pages[0], "all", "総合"
     assert_feed_page feed_pages[1], "society", "政治・経済"
@@ -39,10 +38,9 @@ class FeedPageTest < ActiveSupport::TestCase
     assert_feed_page feed_pages[4], "itnews", "IT・テクノロジー"
     assert_feed_page feed_pages[5], "international", "海外ニュース"
     assert_feed_page feed_pages[6], "science", "科学・学問"
-    assert_feed_page feed_pages[7], "odekake", "おでかけ・イベント"
-    assert_feed_page feed_pages[8], "2ch", "2chまとめ"
-    assert_feed_page feed_pages[9], "neta", "ネタ・話題・トピック"
-    assert_feed_page feed_pages[10], "movie", "動画"
+    assert_feed_page feed_pages[7], "2ch", "2chまとめ"
+    assert_feed_page feed_pages[8], "neta", "ネタ・話題・トピック"
+    assert_feed_page feed_pages[9], "movie", "動画"
 
     # execute - all page save
     feed_pages.each { |f| f.save! }
