@@ -75,7 +75,7 @@ class FeedPage
   end
 
   def _build_url
-    "http://ceron.jp/#{@type}/"
+    "https://ceron.jp/#{@type}/"
   end
 
   def _build_s3_path
