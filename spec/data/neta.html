@@ -1,0 +1,672 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta name="keywords" content="ネタ・話題・トピック,ネタ,ニュース" />
+<meta name="description" content="ネタカテゴリの注目記事一覧です。Ceron（セロン）はツイッターで話題になっているニュースをみんなのコメント付きでお届けするソーシャルニュースサイトです。" />
+<meta name="viewport" content="width=device-width; initial-scale=1.0;" />
+<meta property="fb:app_id" content="439371879421477" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@ceron_jp" />
+<meta property="og:title" content="ネタ・話題・トピック - Ceron" />
+<meta property="og:url" content="https://ceron.jp/neta/" />
+<meta property="og:image" content="https://ceron.jp/img/ogp.png" />
+<meta property="og:description" content="ネタカテゴリの注目記事一覧です。Ceron（セロン）はツイッターで話題になっているニュースをみんなのコメント付きでお届けするソーシャルニュースサイトです。" />
+<meta property="og:site_name" content="Ceron" />
+
+<link rel="stylesheet" type="text/css" href="/css.css" media="all" />
+<link rel="stylesheet" type="text/css" href="/js/jquery-ui.css" media="all" />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="https://ceron.jp/neta/?type=rss" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="Ceron.jp記事検索" />
+<script type="text/javascript"><!--
+var genre = "";
+var keyword = "";
+//--></script>
+<script type="text/javascript" src="/js/library.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+<script type="text/javascript">
+var microadCompass = microadCompass || {};
+microadCompass.queue = microadCompass.queue || [];
+</script>
+<script type="text/javascript" charset="UTF-8" src="//j.microad.net/js/compass.js" onload="new microadCompass.AdInitializer().initialize();" async></script>
+<script type="text/javascript">$(function(){$('img.lazy').lazyload({threshold:200});});</script>
+
+<title>ネタ・話題・トピック - Ceron</title>
+</head>
+
+<body>
+<div id="main" class="category">
+
+<div id="header">
+<div id="header_inner">
+<div id="leader">ツイッターのコメントで見るニュースサイト・セロン　 </div>
+
+<div id="header_menu" onclick="toggle('drop_menu');">
+<img src="/img/icon_menu.png" width="32px" height="32px" />
+<div id="drop_menu" style="display:none;">
+<ul>
+<li><a href="/">トップ</a></li><li><a href="/all/newitem/">速報</a></li><li><a href="/all/">総合</a></li><li><a href="/society/">政治経済</a></li><li><a href="/entertainment/">エンタメ</a></li><li><a href="/sports/">スポーツ</a></li><li><a href="/itnews/">IT</a></li><li><a href="/international/">海外</a></li><li><a href="/science/">科学</a></li><li><a href="/2ch/">2ch</a></li><li><a href="/neta/" class="selected">ネタ</a></li><li><a href="/movie/">動画</a></li><li><a href="/comic/">マンガ</a></li><li><a href="/ranking/day/">昨日の人気記事</a></li>
+<li><a href='/registered.html'>メディア一覧</a></li>
+<li><a href='https://twitter.com/ceron_jp' target='_blank'>Twitter</a></li>
+<li><a href='/help.html'>ヘルプ</a></li>
+<li><a href='/help.html#_about'>Ceronについて</a></li>
+</ul>
+</div>
+</div>
+
+
+<a id="logo" href="/" title="ソーシャルニュース セロン">
+<img class="logo_l" src="/img/logo.png" width="180px" height="36px" />
+<img class="logo_s" src="/img/logo.png" width="112px" height="22px" /></a>
+
+
+<form action="/search" method="get" name="search" id="header_search" onsubmit="return headerSearchReady();">
+<div id="input_box"><input type="text" id="header_search_textarea" class="search" name="q" value="" 
+placeholder="キーワード"
+onclick="if(!this.value){this.setAttribute('AutoComplete','on');}" 
+onkeyup="this.setAttribute('AutoComplete', 'off');" 
+onsubmit="this.setAttribute('AutoComplete', 'on');" 
+/></div>
+<div class="search_button" onclick="document.getElementById('submitButton').click();"></div>
+<input type="submit" style="display:none;" id="submitButton" /> 
+</form>
+
+</div><!--end header_inner-->
+</div><!--end header-->
+
+<div id="menu_bar" class="menu_bar">
+<div id="menu_bar_inner" class="menu_bar_inner"><ul><li><a href="/">トップ</a></li><li><a href="/all/newitem/">速報</a></li><li><a href="/all/">総合</a></li><li><a href="/society/">政治経済</a></li><li><a href="/entertainment/">エンタメ</a></li><li><a href="/sports/">スポーツ</a></li><li><a href="/itnews/">IT</a></li><li><a href="/international/">海外</a></li><li><a href="/science/">科学</a></li><li><a href="/2ch/">2ch</a></li><li><a href="/neta/" class="selected">ネタ</a></li><li><a href="/movie/">動画</a></li><li><a href="/comic/">マンガ</a></li><li><a href="/ranking/day/">昨日の人気記事</a></li></ul></div>
+</div><!-- /menu_bar -->
+<div id="fixed_header" class="menu_bar" style="margin-top:-240px;">
+<div id="fixed_header_inner" class="menu_bar_inner">
+<a href="/">
+<img class="logo_l" src="/img/logo.png" width="90px" height="18px" />
+<img class="logo_s" src="/img/logo.png" width="45px" height="9px" />
+</a>
+</div>
+</div>
+
+<div id="field">
+
+<div id="field_inner">
+
+<div id="main_column">
+<div id="main_column_inner"><div id="pan"><a href='/'>TOP</a> &gt; ネタ・話題・トピック </div><script type="text/javascript">header_ad();</script>
+<div class="item_list_box">
+<h1 class="page_title">ネタ・話題・トピック <a href="/neta/?type=rss" class="icon icon_rss"></a></h1>
+<div class="tablink"><a href="/neta/" class="selected">注目順</a><a href="/neta/newitem/">新着順</a></div> <div class='pickup'><div class="item">
+<div class="item_status">
+<span class="link_num over20">61<span>コメント</span></span>
+<span class="date date_new">7 時間前　　</span>
+<a href="http://getnews.jp/archives/2133315" target="_blank" class="item_direct"> - getnews.jp</a></div>
+<div class="item_title"><a href="/url/getnews.jp/archives/2133315">「ガチヤバイ!? リアルガチでやばいかも!?」日本年金機構が軽いノリのツイートを行って批判殺到・炎上 ｜ ガジェット通信 GetNews</a></div>
+<a class="trimming thumbnail" href="/url/getnews.jp/archives/2133315" style="width:120px;height:120px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_76914cbcd1ff991bc03f70be1fed916bf00224e6.jpg" width="120" height="120" onerror="this.parentNode.style.display='none'" style="left:0px" /></a><p>年金の運営業務を担っている特殊法人の「日本年金機構」。3月14日、その日本年金機構(@Nenkin_Kikou)が『Twitte...［<a href="http://getnews.jp/archives/2133315" target="_blank">続きを読む</a>］</p>
+</div>
+</div><div class="item">
+<div class="item_status">
+<span class="link_num over20">29<span>コメント</span></span>
+<span class="date date_new">1 時間前　　</span>
+<a href="http://lineblog.me/kitamura_yukiya/archives/1564397.html" target="_blank" class="item_direct"> - lineblog.me</a></div>
+<div class="item_title"><a href="/url/lineblog.me/kitamura_yukiya/archives/1564397.html">北村有起哉 公式ブログ - 夜の織部 - Powered by LINE</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over20">22<span>コメント</span></span>
+<span class="date date_new">5 時間前　　</span>
+<a href="http://gigazine.net/news/20190315-epic-game-launcher-send-steam-data/" target="_blank" class="item_direct"> - gigazine.net</a></div>
+<div class="item_title"><a href="/url/gigazine.net/news/20190315-epic-game-launcher-send-steam-data/">人気バトルロイヤル「フォートナイト」の起動ソフトがSteamのデータをこっそり収集していたことが判明 - GIGAZINE</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over20">26<span>コメント</span></span>
+<span class="date date_new">8 時間前　　</span>
+<a href="http://togetter.com/li/1328414" target="_blank" class="item_direct"> - togetter.com</a></div>
+<div class="item_title"><a href="/url/togetter.com/li/1328414">NHKでピエール瀧出演「ALWAYS三丁目の夕日」放送中止し、代わりが薬物過剰摂取で亡くなったリヴァー・フェニックス出演作品に疑問の声 - Togetter</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over20">59<span>コメント</span></span>
+<span class="date date_new">20 時間前　　</span>
+<a href="http://togetter.com/li/1328278" target="_blank" class="item_direct"> - togetter.com</a></div>
+<div class="item_title"><a href="/url/togetter.com/li/1328278">ピエール瀧さんに対するおぎやはぎの発言が「この視点は大事」と称賛される「素晴らしい」「見直した」 - Togetter</a></div>
+</div>
+<div style='height:16px;'> </div><div class="item">
+<div class="item_status">
+<span class="link_num over20">32<span>コメント</span></span>
+<span class="date date_new">7 時間前　　</span>
+<a href="http://gigazine.net/news/20190315-apple-icloud-system-down/" target="_blank" class="item_direct"> - gigazine.net</a></div>
+<div class="item_title"><a href="/url/gigazine.net/news/20190315-apple-icloud-system-down/">AppleのiCloudで大規模なシステム障害が発生、GoogleやFacebookに引き続き - GIGAZINE</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over20">30<span>コメント</span></span>
+<span class="date date_new">10 時間前　　</span>
+<a href="http://news.careerconnection.jp/?p=68731" target="_blank" class="item_direct"> - news.careerconnection.jp</a></div>
+<div class="item_title"><a href="/url/news.careerconnection.jp/?p=68731">薄給な人達のリアル「10年働いても手取り19万前後」「残業がないとアラサーで14万円」 | キャリコネニュース</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over20">23<span>コメント</span></span>
+<span class="date date_new">11 時間前　　</span>
+<a href="http://j-town.net/tokyo/research/results/277142.html" target="_blank" class="item_direct"> - j-town.net</a></div>
+<div class="item_title"><a href="/url/j-town.net/tokyo/research/results/277142.html">好きなビールメーカーといえば？　2位「サッポロ」、1位はやっぱり... - Jタウン研究所 - Jタウンネット　東京都</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over20">75<span>コメント</span></span>
+<span class="date">2019-03-14 16:59</span>
+<a href="http://nlab.itmedia.co.jp/nl/articles/1903/14/news112.html" target="_blank" class="item_direct"> - nlab.itmedia.co.jp</a></div>
+<div class="item_title"><a href="/url/nlab.itmedia.co.jp/nl/articles/1903/14/news112.html">「薬物なんて必要ありません！　筋トレしましょう！」　西川貴教が唱えた“筋トレ万能説”が大反響を呼ぶ - ねとらぼ</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over20">21<span>コメント</span></span>
+<span class="date date_new">8 時間前　　</span>
+<a href="http://nikkan-spa.jp/1558892" target="_blank" class="item_direct"> - nikkan-spa.jp</a></div>
+<div class="item_title"><a href="/url/nikkan-spa.jp/1558892">後藤真希の“アパホテル不倫”が安すぎて、世の男から「好感度上がった」の声 | 日刊SPA!</a></div>
+</div>
+<div style='height:16px;'> </div><div class="item">
+<div class="item_status">
+<span class="link_num over3">16<span>コメント</span></span>
+<span class="date date_new">3 時間前　　</span>
+<a href="http://gigazine.net/news/20190315-iphone-saves-owner-arrow-attack/" target="_blank" class="item_direct"> - gigazine.net</a></div>
+<div class="item_title"><a href="/url/gigazine.net/news/20190315-iphone-saves-owner-arrow-attack/">iPhoneが盾になって矢の直撃を防ぐ奇跡のような事件が発生 - GIGAZINE</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">18<span>コメント</span></span>
+<span class="date date_new">8 時間前　　</span>
+<a href="http://r25.jp/article/655345373766875725" target="_blank" class="item_direct"> - r25.jp</a></div>
+<div class="item_title"><a href="/url/r25.jp/article/655345373766875725">まわりが笑ってるのに自分が楽しめないヤツは売れない。品川祐が語る「成長のための3カ条」｜新R25 - 20代ビジネスパーソンのバイブル</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over20">77<span>コメント</span></span>
+<span class="date">2019-03-14 15:20</span>
+<a href="http://gigazine.net/news/20190314-tumblr-traffic-dropped-150million/" target="_blank" class="item_direct"> - gigazine.net</a></div>
+<div class="item_title"><a href="/url/gigazine.net/news/20190314-tumblr-traffic-dropped-150million/">成年向けコンテンツを全面禁止したTumblrへのユーザー訪問数が1億5000万減ったことが判明 - GIGAZINE</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">16<span>コメント</span></span>
+<span class="date date_new">4 時間前　　</span>
+<a href="http://www.bengo4.com/c_5/n_9365/" target="_blank" class="item_direct"> - www.bengo4.com</a></div>
+<div class="item_title"><a href="/url/www.bengo4.com/c_5/n_9365/">コンビニオーナーの団交認めず、中労委が判断覆す　舞台は裁判へ - 弁護士ドットコム</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over100">207<span>コメント</span></span>
+<span class="date">2019-03-14 16:39</span>
+<a href="http://nlab.itmedia.co.jp/nl/articles/1903/14/news115.html" target="_blank" class="item_direct"> - nlab.itmedia.co.jp</a></div>
+<div class="item_title"><a href="/url/nlab.itmedia.co.jp/nl/articles/1903/14/news115.html">一体誰なんだ（棒）　中の人がプロ棋士のVTuber「ひふみちゃん」、叡王戦発表会でお披露目 - ねとらぼ</a></div>
+</div>
+<div style='height:16px;'> </div><div class="item">
+<div class="item_status">
+<span class="link_num over20">70<span>コメント</span></span>
+<span class="date date_new">20 時間前　　</span>
+<a href="http://nlab.itmedia.co.jp/nl/articles/1903/14/news155.html" target="_blank" class="item_direct"> - nlab.itmedia.co.jp</a></div>
+<div class="item_title"><a href="/url/nlab.itmedia.co.jp/nl/articles/1903/14/news155.html">ゲーム「キングダム ハーツIII」オラフ役の声優交代　ピエール瀧容疑者逮捕で - ねとらぼ</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">14<span>コメント</span></span>
+<span class="date date_new">4 時間前　　</span>
+<a href="http://togetter.com/li/1328437" target="_blank" class="item_direct"> - togetter.com</a></div>
+<div class="item_title"><a href="/url/togetter.com/li/1328437">田舎住みの人が「映画を見に行く時間が取れない」という言葉にはこういった意味も含まれている「切ない…」 - Togetter</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">13<span>コメント</span></span>
+<span class="date date_new">6 時間前　　</span>
+<a href="http://trafficnews.jp/post/84439/3" target="_blank" class="item_direct"> - trafficnews.jp</a></div>
+<div class="item_title"><a href="/url/trafficnews.jp/post/84439/3">日英なぜ急接近？ 英軍艦「モントローズ」来日と一般公開の背景にブレグジット問題 | 乗りものニュース- (3)</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">14<span>コメント</span></span>
+<span class="date date_new">7 時間前　　</span>
+<a href="http://www.gizmodo.jp/2019/03/sxsw-2019-my-passport-story.html" target="_blank" class="item_direct"> - www.gizmodo.jp</a></div>
+<div class="item_title"><a href="/url/www.gizmodo.jp/2019/03/sxsw-2019-my-passport-story.html">初の海外でパスポート落として絶望したけど、SXSWに来ていた日本の方に助けられて30分で戻ってきた話 #SXSW2019 | ギズモード・ジャパン</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over20">23<span>コメント</span></span>
+<span class="date date_new">10 時間前　　</span>
+<a href="http://wpb.shueisha.co.jp/news/society/2019/03/15/108402/" target="_blank" class="item_direct"> - wpb.shueisha.co.jp</a></div>
+<div class="item_title"><a href="/url/wpb.shueisha.co.jp/news/society/2019/03/15/108402/">誰もトクをしない？　大阪府知事選と大阪市長選の「Ｗクロス選挙」に大阪のおばちゃんもＮＯ！ - 社会 - ニュース｜週プレNEWS［週刊プレイボーイのニュースサイト］</a></div>
+</div>
+<div style='height:16px;'> </div><div class="item">
+<div class="item_status">
+<span class="link_num over20">29<span>コメント</span></span>
+<span class="date date_new">23 時間前　　</span>
+<a href="http://togetter.com/li/1328210" target="_blank" class="item_direct"> - togetter.com</a></div>
+<div class="item_title"><a href="/url/togetter.com/li/1328210">「最後に質問ありますか？」約10社を渡り歩いた転職のプロが面接の逆質問で使える最強の答え方を伝授 - Togetter</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">15<span>コメント</span></span>
+<span class="date date_new">8 時間前　　</span>
+<a href="http://www.bengo4.com/c_1009/n_9361/" target="_blank" class="item_direct"> - www.bengo4.com</a></div>
+<div class="item_title"><a href="/url/www.bengo4.com/c_1009/n_9361/">警察動かした「僧衣でできるもん」　福井、運転問題で「衣服規定」なくなる - 弁護士ドットコム</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over20">23<span>コメント</span></span>
+<span class="date date_new">9 時間前　　</span>
+<a href="http://ten-navi.com/dybe/4261/" target="_blank" class="item_direct"> - ten-navi.com</a></div>
+<div class="item_title"><a href="/url/ten-navi.com/dybe/4261/">生活保護受給者と関わって学んだ「生き方の本質」｜えらいてんちょう | Dybe!</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over20">23<span>コメント</span></span>
+<span class="date date_new">9 時間前　　</span>
+<a href="http://anond.hatelabo.jp/20190314192928" target="_blank" class="item_direct"> - anond.hatelabo.jp</a></div>
+<div class="item_title"><a href="/url/anond.hatelabo.jp/20190314192928">各都道府県庁から最寄りのジュゴンがいる水族館</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over20">26<span>コメント</span></span>
+<span class="date">2019-03-14 14:51</span>
+<a href="http://togetter.com/li/1328179" target="_blank" class="item_direct"> - togetter.com</a></div>
+<div class="item_title"><a href="/url/togetter.com/li/1328179">レオナルド・ディカプリオが25歳までの女性としか付き合っていないことを示したグラフが分かりやすい - Togetter</a></div>
+</div>
+<div style='height:16px;'> </div><div class="item">
+<div class="item_status">
+<span class="link_num over20">37<span>コメント</span></span>
+<span class="date">2019-03-13 00:42</span>
+<a href="http://note.mu/sady/n/n8dd2c3c082df" target="_blank" class="item_direct"> - note.mu</a></div>
+<div class="item_title"><a href="/url/note.mu/sady/n/n8dd2c3c082df">水をすくうのではなく、水を交換する｜佐渡島庸平｜note</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">19<span>コメント</span></span>
+<span class="date date_new">17 時間前　　</span>
+<a href="http://togetter.com/li/1328323" target="_blank" class="item_direct"> - togetter.com</a></div>
+<div class="item_title"><a href="/url/togetter.com/li/1328323">山寺宏一が捕まったら日本のアニメコンテンツの何割が凍結されるのか…考えただけで恐ろしい「作品に罪はない」「お願い悪いことしないで」 - Togetter</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over20">24<span>コメント</span></span>
+<span class="date date_new">22 時間前　　</span>
+<a href="http://anond.hatelabo.jp/20190314123054" target="_blank" class="item_direct"> - anond.hatelabo.jp</a></div>
+<div class="item_title"><a href="/url/anond.hatelabo.jp/20190314123054">LGBTが差別集団でショックを受けた</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">17<span>コメント</span></span>
+<span class="date date_new">9 時間前　　</span>
+<a href="http://r25.jp/article/655305775037223122" target="_blank" class="item_direct"> - r25.jp</a></div>
+<div class="item_title"><a href="/url/r25.jp/article/655305775037223122">“個の時代”という言葉を履き違えていませんか？「チームという病」への処方箋｜新R25 - 20代ビジネスパーソンのバイブル</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">17<span>コメント</span></span>
+<span class="date date_new">15 時間前　　</span>
+<a href="http://note.mu/btororobtororo/n/n75c3be19a021" target="_blank" class="item_direct"> - note.mu</a></div>
+<div class="item_title"><a href="/url/note.mu/btororobtororo/n/n75c3be19a021">就活から逃げました｜makemeatayase｜note</a></div>
+</div>
+<div style='height:16px;'> </div><div class="item">
+<div class="item_status">
+<span class="link_num over20">30<span>コメント</span></span>
+<span class="date date_new">21 時間前　　</span>
+<a href="http://nlab.itmedia.co.jp/nl/articles/1903/14/news149.html" target="_blank" class="item_direct"> - nlab.itmedia.co.jp</a></div>
+<div class="item_title"><a href="/url/nlab.itmedia.co.jp/nl/articles/1903/14/news149.html">検索結果から「いかがでしたかブログ」除外　ブラウザ拡張機能「ゴシップサイトブロッカー」が便利 - ねとらぼ</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over20">33<span>コメント</span></span>
+<span class="date date_new">23 時間前　　</span>
+<a href="http://nlab.itmedia.co.jp/nl/articles/1903/14/news066.html" target="_blank" class="item_direct"> - nlab.itmedia.co.jp</a></div>
+<div class="item_title"><a href="/url/nlab.itmedia.co.jp/nl/articles/1903/14/news066.html">Twitter経由で迷子猫がみつかり、無事飼い主のもとへ　SNS拡散からたどり着いた奇跡に「希望の星」の声 - ねとらぼ</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over20">36<span>コメント</span></span>
+<span class="date">2019-03-14 15:26</span>
+<a href="http://rocketnews24.com/2019/03/14/1185638/" target="_blank" class="item_direct"> - rocketnews24.com</a></div>
+<div class="item_title"><a href="/url/rocketnews24.com/2019/03/14/1185638/">【絶望】女性の約8割が「貧乏なイケメンより『金持ちのハゲ』と結婚したい」という調査結果 → 女性の9割が「薄毛の男性が嫌い」という謎 | ロケットニュース24</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over100">182<span>コメント</span></span>
+<span class="date">2019-03-14 12:04</span>
+<a href="http://ranking.goo.ne.jp/vote/1883/" target="_blank" class="item_direct"> - ranking.goo.ne.jp</a></div>
+<div class="item_title"><a href="/url/ranking.goo.ne.jp/vote/1883/">投票 - 男の色気を感じるアニメ主人公といえば？ - gooランキング</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over20">24<span>コメント</span></span>
+<span class="date">2019-03-13 23:51</span>
+<a href="http://j-town.net/tokyo/research/votes/269477.html" target="_blank" class="item_direct"> - j-town.net</a></div>
+<div class="item_title"><a href="/url/j-town.net/tokyo/research/votes/269477.html">平成を代表する歌姫といえば？【さよなら平成アンケート】 - Jタウン研究所 - Jタウンネット　東京都</a></div>
+</div>
+<div style='height:16px;'> </div><div class="item">
+<div class="item_status">
+<span class="link_num over3">18<span>コメント</span></span>
+<span class="date date_new">18 時間前　　</span>
+<a href="http://kaigainohannoublog.blog55.fc2.com/blog-entry-3003.html" target="_blank" class="item_direct"> - kaigainohannoublog.blog55.fc2.com</a></div>
+<div class="item_title"><a href="/url/kaigainohannoublog.blog55.fc2.com/blog-entry-3003.html">【海外の反応】　パンドラの憂鬱 海外「反日勢力に謝る必要はない」 ハリポタの俳優が旭日旗騒動で謝罪に追い込まれる事態に</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">18<span>コメント</span></span>
+<span class="date date_new">18 時間前　　</span>
+<a href="http://togetter.com/li/1328301" target="_blank" class="item_direct"> - togetter.com</a></div>
+<div class="item_title"><a href="/url/togetter.com/li/1328301">「売れないと解っていても作ってしまう」とある彫金作家さんの作品がなかなかの強烈さで話題に「むしろ欲しい(笑)」 - Togetter</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">14<span>コメント</span></span>
+<span class="date date_new">10 時間前　　</span>
+<a href="http://togetter.com/li/1328361" target="_blank" class="item_direct"> - togetter.com</a></div>
+<div class="item_title"><a href="/url/togetter.com/li/1328361">『レディーファーストのLadyは「女性」でなく「身分ある女性（貴族の妻）」のこと。その背景はとてもしんどい』～こなたまさん - Togetter</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over20">28<span>コメント</span></span>
+<span class="date">2019-03-14 17:38</span>
+<a href="http://dailyportalz.jp/kiji/okayama-manju-hobo_anko" target="_blank" class="item_direct"> - dailyportalz.jp</a></div>
+<div class="item_title"><a href="/url/dailyportalz.jp/kiji/okayama-manju-hobo_anko">ほぼあんこの岡山土産饅頭を食べ比べて甘さにふるえよう :: デイリーポータルZ</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">15<span>コメント</span></span>
+<span class="date date_new">10 時間前　　</span>
+<a href="http://blog.tinect.jp/?p=58912" target="_blank" class="item_direct"> - blog.tinect.jp</a></div>
+<div class="item_title"><a href="/url/blog.tinect.jp/?p=58912">お金は、モノよりも体験に突っ込んだ方が、間違いなく幸せになれる。 | Books&amp;Apps</a></div>
+</div>
+<div style='height:16px;'> </div><div class="item">
+<div class="item_status">
+<span class="link_num over3">13<span>コメント</span></span>
+<span class="date date_new">11 時間前　　</span>
+<a href="http://trafficnews.jp/post/84331" target="_blank" class="item_direct"> - trafficnews.jp</a></div>
+<div class="item_title"><a href="/url/trafficnews.jp/post/84331">東名・大和トンネル渋滞はいつ解消されるのか 新東名との接続、どう影響？ 鍵は圏央道 | 乗りものニュース</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">16<span>コメント</span></span>
+<span class="date date_new">19 時間前　　</span>
+<a href="http://www.lifehacker.jp/2019/03/address-hopper_matt-san.html" target="_blank" class="item_direct"> - www.lifehacker.jp</a></div>
+<div class="item_title"><a href="/url/www.lifehacker.jp/2019/03/address-hopper_matt-san.html">アドレスホッパーは固定費削減の究極形か？マットさんの暮らし方 | ライフハッカー［日本版］</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over20">31<span>コメント</span></span>
+<span class="date date_new">22 時間前　　</span>
+<a href="http://gigazine.net/news/20190314-paying-kids-to-learn/" target="_blank" class="item_direct"> - gigazine.net</a></div>
+<div class="item_title"><a href="/url/gigazine.net/news/20190314-paying-kids-to-learn/">「勉強したらお金を払う」という教育方法は有効であることが実験で示される - GIGAZINE</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">14<span>コメント</span></span>
+<span class="date">2019-03-14 16:16</span>
+<a href="http://www.gizmodo.jp/2019/03/spotify-hits-apple-with-eu-antitrust-complaint.html" target="_blank" class="item_direct"> - www.gizmodo.jp</a></div>
+<div class="item_title"><a href="/url/www.gizmodo.jp/2019/03/spotify-hits-apple-with-eu-antitrust-complaint.html">Spotify｢Apple税にはもう我慢の限界！｣独占禁止法違反を申し立てる | ギズモード・ジャパン</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over20">46<span>コメント</span></span>
+<span class="date">2019-03-14 12:29</span>
+<a href="http://nlab.itmedia.co.jp/nl/articles/1903/13/news108.html" target="_blank" class="item_direct"> - nlab.itmedia.co.jp</a></div>
+<div class="item_title"><a href="/url/nlab.itmedia.co.jp/nl/articles/1903/13/news108.html">「黒マスクのルーツは韓国」って本当？　2019年に入ってから各社が報道　→　ネット上で疑問の声 - ねとらぼ</a></div>
+</div>
+<div style='height:16px;'> </div><div class="item">
+<div class="item_status">
+<span class="link_num over3">13<span>コメント</span></span>
+<span class="date">2019-03-14 12:14</span>
+<a href="http://omocoro.jp/kiji/166282/" target="_blank" class="item_direct"> - omocoro.jp</a></div>
+<div class="item_title"><a href="/url/omocoro.jp/kiji/166282/">【こんなの待ってた】新しい発想で作られた「大人のぬいぐるみ」が登場【閲覧注意】 | オモコロ</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over20">34<span>コメント</span></span>
+<span class="date">2019-03-14 08:28</span>
+<a href="http://r25.jp/article/654870218766603088" target="_blank" class="item_direct"> - r25.jp</a></div>
+<div class="item_title"><a href="/url/r25.jp/article/654870218766603088">3日で2.5億を売り上げるキャバ嬢・エンリケが教える「心を掴むコミュニケーション術」｜新R25 - 20代ビジネスパーソンのバイブル</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over20">43<span>コメント</span></span>
+<span class="date">2019-03-13 18:29</span>
+<a href="http://rocketnews24.com/2019/03/13/1185202/" target="_blank" class="item_direct"> - rocketnews24.com</a></div>
+<div class="item_title"><a href="/url/rocketnews24.com/2019/03/13/1185202/">【意味不明】最新の「流しそうめん」、ついに重力の壁を超越する！ 麺が下から上に流れる新型『そうめんスライダー ギャラクシー』がヤバイ | ロケットニュース24</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over20">22<span>コメント</span></span>
+<span class="date">2019-03-13 17:54</span>
+<a href="http://note.mu/tiekey/n/nf1152c5daebf" target="_blank" class="item_direct"> - note.mu</a></div>
+<div class="item_title"><a href="/url/note.mu/tiekey/n/nf1152c5daebf">配色はセンスじゃない、UIデザインで色をかんたんにキメるメソッド｜Taiki IKEDA｜note</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over20">71<span>コメント</span></span>
+<span class="date">2019-03-12 13:29</span>
+<a href="http://nlab.itmedia.co.jp/nl/articles/1903/12/news084.html" target="_blank" class="item_direct"> - nlab.itmedia.co.jp</a></div>
+<div class="item_title"><a href="/url/nlab.itmedia.co.jp/nl/articles/1903/12/news084.html">うぉぉ、全線乗り放題！　GW10連休対応、近畿東海の鉄道会社5社が「共通乗り放題きっぷ」発売 - ねとらぼ</a></div>
+</div>
+<div style='height:16px;'> </div>
+</div>
+<div class='pagenavi'><a href='/neta/newitem/'>ネタ・話題・トピックを新着順で見る</a></div><script type="text/javascript">footerbox_ad();</script></div>
+</div>
+
+<div id="side_column">
+<div id="side_column_inner">
+<script type="text/javascript">sidebox_ad1()</script>
+<div id="side_flash" style="margin-bottom:4px;">
+<div class="list_title"><h2><a href="/all/newitem/">速報</a></h2></div>
+<div class="item_list_box"><div class="item">
+<div class="item_status">
+<span class="link_num over20">44<span>コメント</span></span>
+<span class="date date_new">58 分前　　　</span>
+<a href="http://natalie.mu/music/news/324043" target="_blank" class="item_direct"> - natalie.mu</a></div>
+<div class="item_title"><a href="/url/natalie.mu/music/news/324043">星野源のNHK特番OA決定、音楽制作や初5大ドームツアー語る - 音楽ナタリー</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over20">29<span>コメント</span></span>
+<span class="date date_new">1 時間前　　</span>
+<a href="http://lineblog.me/kitamura_yukiya/archives/1564397.html" target="_blank" class="item_direct"> - lineblog.me</a></div>
+<div class="item_title"><a href="/url/lineblog.me/kitamura_yukiya/archives/1564397.html">北村有起哉 公式ブログ - 夜の織部 - Powered by LINE</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">10<span>コメント</span></span>
+<span class="date date_new">1 時間前　　</span>
+<a href="http://www.oricon.co.jp/news/2131651/full/" target="_blank" class="item_direct"> - www.oricon.co.jp</a></div>
+<div class="item_title"><a href="/url/www.oricon.co.jp/news/2131651/full/">星野源、3・25NHK特番放送決定　5大ドームツアー直後に直撃＆最新ライブ映像も | ORICON NEWS</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over100">318<span>コメント</span></span>
+<span class="date date_new">1 時間前　　</span>
+<a href="http://www3.nhk.or.jp/news/html/20190315/k10011849741000.html" target="_blank" class="item_direct"> - www3.nhk.or.jp</a></div>
+<div class="item_title"><a href="/url/www3.nhk.or.jp/news/html/20190315/k10011849741000.html">「エヴァンゲリオン」コスプレ姿で住宅侵入 現金盗んだ疑い | NHKニュース</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">16<span>コメント</span></span>
+<span class="date date_new">1 時間前　　</span>
+<a href="http://www.cnn.co.jp/world/35134279.html" target="_blank" class="item_direct"> - www.cnn.co.jp</a></div>
+<div class="item_title"><a href="/url/www.cnn.co.jp/world/35134279.html">CNN.co.jp : ＮＺ銃乱射、４０人死亡と首相　４人を拘束</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">10<span>コメント</span></span>
+<span class="date date_new">2 時間前　　</span>
+<a href="http://www.zakzak.co.jp/soc/news/190315/soc1903150008-n1.html" target="_blank" class="item_direct"> - www.zakzak.co.jp</a></div>
+<div class="item_title"><a href="/url/www.zakzak.co.jp/soc/news/190315/soc1903150008-n1.html">【有本香の以毒制毒】安倍首相相手に“ごっこ”するアホ議員たち…「平和憲法」クイズはこう出題せよ！ （1/2ページ） - zakzak</a></div>
+</div>
+<div class="more"><a href="/all/newitem/">速報</a></div></div>
+</div>
+<div id="side_imgs" style="margin-bottom:4px;">
+<div class="item_list_box"><div class="item item_media">
+<a class="trimming thumbnail" href="/url/www3.nhk.or.jp/news/html/20190315/k10011849741000.html" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_27d88f8f4f9b7657637da9a69cfc7f9e40002e22.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over100">318<span>コメント</span></span>
+<span class="date date_new">1 時間前　　</span><wbr />
+<a href="http://www3.nhk.or.jp/news/html/20190315/k10011849741000.html" target="_blank" class="item_direct"> - www3.nhk.or.jp</a></div>
+<div class="item_title"><a href="/url/www3.nhk.or.jp/news/html/20190315/k10011849741000.html">「エヴァンゲリオン」コスプレ姿で住宅侵入 現金盗んだ疑い | NHKニュ...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.mbs.jp/news/sp/zenkokunews/20190315/3623043.shtml" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_240a1a28cd32ea60149cf184d9cc5e3d245ac6cc.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over100">106<span>コメント</span></span>
+<span class="date date_new">4 時間前　　</span><wbr />
+<a href="http://www.mbs.jp/news/sp/zenkokunews/20190315/3623043.shtml" target="_blank" class="item_direct"> - www.mbs.jp</a></div>
+<div class="item_title"><a href="/url/www.mbs.jp/news/sp/zenkokunews/20190315/3623043.shtml">【現場から、】「消えた留学生」、東京福祉大の７００人所在不明に | MB...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.tokyo-sports.co.jp/entame/entertainment/1309606/" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_450146d80bbd58634828aaf8c94fe0229ad836a0.jpg" width="96" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:0px;" /></a>
+<div class="item_status">
+<span class="link_num over20">96<span>コメント</span></span>
+<span class="date date_new">5 時間前　　</span><wbr />
+<a href="http://www.tokyo-sports.co.jp/entame/entertainment/1309606/" target="_blank" class="item_direct"> - www.tokyo-sports.co.jp</a></div>
+<div class="item_title"><a href="/url/www.tokyo-sports.co.jp/entame/entertainment/1309606/">ピエール瀧容疑者ブチ切れ奇行　一度スイッチ入ると豹変…警察沙汰過去も</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/getnews.jp/archives/2133315" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_76914cbcd1ff991bc03f70be1fed916bf00224e6.jpg" width="96" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:0px;" /></a>
+<div class="item_status">
+<span class="link_num over20">61<span>コメント</span></span>
+<span class="date date_new">7 時間前　　</span><wbr />
+<a href="http://getnews.jp/archives/2133315" target="_blank" class="item_direct"> - getnews.jp</a></div>
+<div class="item_title"><a href="/url/getnews.jp/archives/2133315">「ガチヤバイ!? リアルガチでやばいかも!?」日本年金機構が軽いノリのツ...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www3.nhk.or.jp/news/html/20190315/k10011849611000.html" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_2cad6eaa573c268025916a64e7423e686f7ae918.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over3">14<span>コメント</span></span>
+<span class="date date_new">2 時間前　　</span><wbr />
+<a href="http://www3.nhk.or.jp/news/html/20190315/k10011849611000.html" target="_blank" class="item_direct"> - www3.nhk.or.jp</a></div>
+<div class="item_title"><a href="/url/www3.nhk.or.jp/news/html/20190315/k10011849611000.html">小６女児２人死亡 父親が連名で手紙「これ以上調査望まず」 | NHKニュ...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.itmedia.co.jp/business/articles/1903/15/news030.html" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_8246600bb84b97828755ff12021c2b9667fbe8cd.jpg" width="144" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-24px;" /></a>
+<div class="item_status">
+<span class="link_num over100">214<span>コメント</span></span>
+<span class="date date_new">10 時間前　　</span><wbr />
+<a href="http://www.itmedia.co.jp/business/articles/1903/15/news030.html" target="_blank" class="item_direct"> - www.itmedia.co.jp</a></div>
+<div class="item_title"><a href="/url/www.itmedia.co.jp/business/articles/1903/15/news030.html">新幹線と飛行機の壁　「4時間」「1万円」より深刻な「1カ月前の壁」 (1...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/gigazine.net/news/20190315-epic-game-launcher-send-steam-data/" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_6c78fbae7da27c9def205843754a418c85de6e61.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over20">22<span>コメント</span></span>
+<span class="date date_new">5 時間前　　</span><wbr />
+<a href="http://gigazine.net/news/20190315-epic-game-launcher-send-steam-data/" target="_blank" class="item_direct"> - gigazine.net</a></div>
+<div class="item_title"><a href="/url/gigazine.net/news/20190315-epic-game-launcher-send-steam-data/">人気バトルロイヤル「フォートナイト」の起動ソフトがSteamのデータをこ...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.daily.co.jp/baseball/2019/03/15/0012148570.shtml" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_2043fed5b9e7d8807b29c2a327f222c72da351d4.jpg" width="108" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-6px;" /></a>
+<div class="item_status">
+<span class="link_num over20">47<span>コメント</span></span>
+<span class="date date_new">7 時間前　　</span><wbr />
+<a href="http://www.daily.co.jp/baseball/2019/03/15/0012148570.shtml" target="_blank" class="item_direct"> - www.daily.co.jp</a></div>
+<div class="item_title"><a href="/url/www.daily.co.jp/baseball/2019/03/15/0012148570.shtml">堀内恒夫氏、すられた財布が一転…妻激怒「本当は黙っていたいけど」と謝罪/...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.itmedia.co.jp/news/articles/1903/15/news081.html" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_6de173a13293e4db34483e9d9b245a0445f49e5a.jpg" width="174" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-39px;" /></a>
+<div class="item_status">
+<span class="link_num over100">184<span>コメント</span></span>
+<span class="date date_new">6 時間前　　</span><wbr />
+<a href="http://www.itmedia.co.jp/news/articles/1903/15/news081.html" target="_blank" class="item_direct"> - www.itmedia.co.jp</a></div>
+<div class="item_title"><a href="/url/www.itmedia.co.jp/news/articles/1903/15/news081.html">Dropbox、無料版のアクセス端末を3台までにひっそり制限 - ITm...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.jiji.com/jc/article?k=2019031500746&g=int" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_a3f0d6a150ed59d1fd21b2d05b3b7c03cf2c1046.jpg" width="144" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-24px;" /></a>
+<div class="item_status">
+<span class="link_num over20">80<span>コメント</span></span>
+<span class="date date_new">5 時間前　　</span><wbr />
+<a href="http://www.jiji.com/jc/article?k=2019031500746&g=int" target="_blank" class="item_direct"> - www.jiji.com</a></div>
+<div class="item_title"><a href="/url/www.jiji.com/jc/article?k=2019031500746&g=int">非核化交渉、中断を検討＝米国に譲歩せず－北朝鮮次官：時事ドットコム</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/this.kiji.is/479175422691869793" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_c00f28c466e31f1d15e5611c384933b5aed87532.jpg" width="96" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:0px;" /></a>
+<div class="item_status">
+<span class="link_num over20">58<span>コメント</span></span>
+<span class="date date_new">2 時間前　　</span><wbr />
+<a href="http://this.kiji.is/479175422691869793" target="_blank" class="item_direct"> - this.kiji.is</a></div>
+<div class="item_title"><a href="/url/this.kiji.is/479175422691869793">NZ銃乱射で40人死亡と地元警察 ｜ 共同通信</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/j-town.net/tokyo/research/results/277142.html" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_b149314f1290ba95fa133a733dd88279be7ef8b0.jpg" width="135" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-19px;" /></a>
+<div class="item_status">
+<span class="link_num over20">23<span>コメント</span></span>
+<span class="date date_new">11 時間前　　</span><wbr />
+<a href="http://j-town.net/tokyo/research/results/277142.html" target="_blank" class="item_direct"> - j-town.net</a></div>
+<div class="item_title"><a href="/url/j-town.net/tokyo/research/results/277142.html">好きなビールメーカーといえば？　2位「サッポロ」、1位はやっぱり... ...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/gendai.ismedia.jp/articles/-/63519" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_94fccd2bcf0851a4c487b84891cabf1bd84a93a7.jpg" width="287" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-95px;" /></a>
+<div class="item_status">
+<span class="link_num over100">104<span>コメント</span></span>
+<span class="date date_new">11 時間前　　</span><wbr />
+<a href="http://gendai.ismedia.jp/articles/-/63519" target="_blank" class="item_direct"> - gendai.ismedia.jp</a></div>
+<div class="item_title"><a href="/url/gendai.ismedia.jp/articles/-/63519">徴用工問題「日本から韓国への制裁検討」がやむを得ない理由（長谷川 幸洋）...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/togetter.com/li/1328278" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_01972322216ef2851f9d996ad0962ae793b72c71.jpg" width="182" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-43px;" /></a>
+<div class="item_status">
+<span class="link_num over20">59<span>コメント</span></span>
+<span class="date date_new">20 時間前　　</span><wbr />
+<a href="http://togetter.com/li/1328278" target="_blank" class="item_direct"> - togetter.com</a></div>
+<div class="item_title"><a href="/url/togetter.com/li/1328278">ピエール瀧さんに対するおぎやはぎの発言が「この視点は大事」と称賛される「...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www3.nhk.or.jp/news/html/20190315/k10011849641000.html" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_5e145dcee240eb81d8e07a646eea0abc53302403.jpg" width="96" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:0px;" /></a>
+<div class="item_status">
+<span class="link_num over20">69<span>コメント</span></span>
+<span class="date date_new">2 時間前　　</span><wbr />
+<a href="http://www3.nhk.or.jp/news/html/20190315/k10011849641000.html" target="_blank" class="item_direct"> - www3.nhk.or.jp</a></div>
+<div class="item_title"><a href="/url/www3.nhk.or.jp/news/html/20190315/k10011849641000.html">モスク銃乱射「少なくとも40人死亡」 ＮＺ首相 | NHKニュース</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/hamusoku.com/archives/10010088.html" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_9ee2fed98f4da149a3729c005ad470a92ef562b8.jpg" width="96" height="109" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:0px;" /></a>
+<div class="item_status">
+<span class="link_num over3">17<span>コメント</span></span>
+<span class="date date_new">18 時間前　　</span><wbr />
+<a href="http://hamusoku.com/archives/10010088.html" target="_blank" class="item_direct"> - hamusoku.com</a></div>
+<div class="item_title"><a href="/url/hamusoku.com/archives/10010088.html">やよい軒はおかずスティール防ぐ気ないんか？:ハムスター速報</a></div>
+</div>
+</div>
+</div>
+
+
+<script type="text/javascript">sidebox_ad2()</script>
+</div>
+</div>
+
+</div><!-- end field_inner -->
+</div><!-- end field-->
+
+
+<div id="footer_menu_bar" class="menu_bar">
+<div id="footer_menu_bar_inner" class="menu_bar_inner"><ul><li><a href="/">トップ</a></li><li><a href="/all/newitem/">速報</a></li><li><a href="/all/">総合</a></li><li><a href="/society/">政治経済</a></li><li><a href="/entertainment/">エンタメ</a></li><li><a href="/sports/">スポーツ</a></li><li><a href="/itnews/">IT</a></li><li><a href="/international/">海外</a></li><li><a href="/science/">科学</a></li><li><a href="/2ch/">2ch</a></li><li><a href="/neta/" class="selected">ネタ</a></li><li><a href="/movie/">動画</a></li><li><a href="/comic/">マンガ</a></li><li><a href="/ranking/day/">昨日の人気記事</a></li></ul></div>
+</div><!-- /menu_bar -->
+<div id="footer">
+<div id="footer_inner">
+<a href="/" title="ソーシャルニュース セロン"><img src="/img/logo.png" width="120px" height="24px" /></a>
+<div style="margin:12px 0 6px 0;"><a href="https://twitter.com/ceron_jp?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="true">@ceron_jpをフォロー</a><script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></div>
+<a href="/help.html">このサイトについて</a>　
+<a href="/top/?type=rss">RSS</a>　
+<a href="/inquiry.html">ご意見・お問い合わせ</a>　
+<a href="https://crea14.jp/">運営会社</a>
+<br /><br />
+</div><!-- end footer_inner-->
+</div><!-- end footer-->
+
+</div><!-- end main-->
+
+<script type="text/javascript"><!--
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-3880305-12', 'ceron.jp');
+ga('send', 'pageview');
+--></script>
+
+</body>
+</html>

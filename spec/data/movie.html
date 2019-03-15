@@ -1,0 +1,721 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta name="keywords" content="動画,動画,ニュース" />
+<meta name="description" content="動画カテゴリの注目記事一覧です。Ceron（セロン）はツイッターで話題になっているニュースをみんなのコメント付きでお届けするソーシャルニュースサイトです。" />
+<meta name="viewport" content="width=device-width; initial-scale=1.0;" />
+<meta property="fb:app_id" content="439371879421477" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@ceron_jp" />
+<meta property="og:title" content="動画 - Ceron" />
+<meta property="og:url" content="https://ceron.jp/movie/" />
+<meta property="og:image" content="https://ceron.jp/img/ogp.png" />
+<meta property="og:description" content="動画カテゴリの注目記事一覧です。Ceron（セロン）はツイッターで話題になっているニュースをみんなのコメント付きでお届けするソーシャルニュースサイトです。" />
+<meta property="og:site_name" content="Ceron" />
+
+<link rel="stylesheet" type="text/css" href="/css.css" media="all" />
+<link rel="stylesheet" type="text/css" href="/js/jquery-ui.css" media="all" />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="https://ceron.jp/movie/?type=rss" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="Ceron.jp記事検索" />
+<script type="text/javascript"><!--
+var genre = "";
+var keyword = "";
+//--></script>
+<script type="text/javascript" src="/js/library.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+<script type="text/javascript">
+var microadCompass = microadCompass || {};
+microadCompass.queue = microadCompass.queue || [];
+</script>
+<script type="text/javascript" charset="UTF-8" src="//j.microad.net/js/compass.js" onload="new microadCompass.AdInitializer().initialize();" async></script>
+<script type="text/javascript">$(function(){$('img.lazy').lazyload({threshold:200});});</script>
+
+<title>動画 - Ceron</title>
+</head>
+
+<body>
+<div id="main" class="category">
+
+<div id="header">
+<div id="header_inner">
+<div id="leader">ツイッターのコメントで見るニュースサイト・セロン　 </div>
+
+<div id="header_menu" onclick="toggle('drop_menu');">
+<img src="/img/icon_menu.png" width="32px" height="32px" />
+<div id="drop_menu" style="display:none;">
+<ul>
+<li><a href="/">トップ</a></li><li><a href="/all/newitem/">速報</a></li><li><a href="/all/">総合</a></li><li><a href="/society/">政治経済</a></li><li><a href="/entertainment/">エンタメ</a></li><li><a href="/sports/">スポーツ</a></li><li><a href="/itnews/">IT</a></li><li><a href="/international/">海外</a></li><li><a href="/science/">科学</a></li><li><a href="/2ch/">2ch</a></li><li><a href="/neta/">ネタ</a></li><li><a href="/movie/" class="selected">動画</a></li><li><a href="/comic/">マンガ</a></li><li><a href="/ranking/day/">昨日の人気記事</a></li>
+<li><a href='/registered.html'>メディア一覧</a></li>
+<li><a href='https://twitter.com/ceron_jp' target='_blank'>Twitter</a></li>
+<li><a href='/help.html'>ヘルプ</a></li>
+<li><a href='/help.html#_about'>Ceronについて</a></li>
+</ul>
+</div>
+</div>
+
+
+<a id="logo" href="/" title="ソーシャルニュース セロン">
+<img class="logo_l" src="/img/logo.png" width="180px" height="36px" />
+<img class="logo_s" src="/img/logo.png" width="112px" height="22px" /></a>
+
+
+<form action="/search" method="get" name="search" id="header_search" onsubmit="return headerSearchReady();">
+<div id="input_box"><input type="text" id="header_search_textarea" class="search" name="q" value="" 
+placeholder="キーワード"
+onclick="if(!this.value){this.setAttribute('AutoComplete','on');}" 
+onkeyup="this.setAttribute('AutoComplete', 'off');" 
+onsubmit="this.setAttribute('AutoComplete', 'on');" 
+/></div>
+<div class="search_button" onclick="document.getElementById('submitButton').click();"></div>
+<input type="submit" style="display:none;" id="submitButton" /> 
+</form>
+
+</div><!--end header_inner-->
+</div><!--end header-->
+
+<div id="menu_bar" class="menu_bar">
+<div id="menu_bar_inner" class="menu_bar_inner"><ul><li><a href="/">トップ</a></li><li><a href="/all/newitem/">速報</a></li><li><a href="/all/">総合</a></li><li><a href="/society/">政治経済</a></li><li><a href="/entertainment/">エンタメ</a></li><li><a href="/sports/">スポーツ</a></li><li><a href="/itnews/">IT</a></li><li><a href="/international/">海外</a></li><li><a href="/science/">科学</a></li><li><a href="/2ch/">2ch</a></li><li><a href="/neta/">ネタ</a></li><li><a href="/movie/" class="selected">動画</a></li><li><a href="/comic/">マンガ</a></li><li><a href="/ranking/day/">昨日の人気記事</a></li></ul></div>
+</div><!-- /menu_bar -->
+<div id="fixed_header" class="menu_bar" style="margin-top:-240px;">
+<div id="fixed_header_inner" class="menu_bar_inner">
+<a href="/">
+<img class="logo_l" src="/img/logo.png" width="90px" height="18px" />
+<img class="logo_s" src="/img/logo.png" width="45px" height="9px" />
+</a>
+</div>
+</div>
+
+<div id="field">
+
+<div id="field_inner">
+
+<div id="main_column">
+<div id="main_column_inner"><div id="pan"><a href='/'>TOP</a> &gt; 動画 </div><script type="text/javascript">header_ad();</script>
+<div class="item_list_box">
+<h1 class="page_title">動画 <a href="/movie/?type=rss" class="icon icon_rss"></a></h1>
+<div class="tablink"><a href="/movie/" class="selected">注目順</a><a href="/movie/newitem/">新着順</a></div> <div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=XKvQCdNAGOg" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_5e2095139a68fb9bca366f817c69a6f6f20cb0ad.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over20">69<span>コメント</span></span>
+<span class="date date_new">9 時間前　　</span><wbr />
+<a href="http://www.youtube.com/watch?v=XKvQCdNAGOg" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=XKvQCdNAGOg">ピエール瀧さんの薬物使用報道について一言【せやろがいおじさん】 - Yo...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=DOacGGRLi64" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_b333a5ecd40967614fc327afde0a47f0a99d0f43.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over100">294<span>コメント</span></span>
+<span class="date date_new">18 時間前　　</span><wbr />
+<a href="http://www.youtube.com/watch?v=DOacGGRLi64" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=DOacGGRLi64">日清焼そばU.F.O.「マキシマム ザ 輝夜月2 篇 2020」30秒 ...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=G3s2G4DVPaI" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_ecfabe06c80c5da28e28ddc139792736fbaa71e9.jpg" width="128" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-16px;" /></a>
+<div class="item_status">
+<span class="link_num over3">19<span>コメント</span></span>
+<span class="date date_new">5 時間前　　</span><wbr />
+<a href="http://www.youtube.com/watch?v=G3s2G4DVPaI" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=G3s2G4DVPaI">Poppin'Party×彩×こころ『檄！帝国華撃団』(難易度：EXPE...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=IA870w3vxhc" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_15991e992a9985529228a474981f8cf3228e0bb3.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over3">18<span>コメント</span></span>
+<span class="date date_new">5 時間前　　</span><wbr />
+<a href="http://www.youtube.com/watch?v=IA870w3vxhc" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=IA870w3vxhc">牧野真莉愛、加賀楓（モーニング娘。’19）ツアーグッズお買い物コーナー＜...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=-hqyqPN6as8" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_5c1cef959a27908b92b0cec5cd44451290d86bfb.jpg" width="128" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-16px;" /></a>
+<div class="item_status">
+<span class="link_num over3">17<span>コメント</span></span>
+<span class="date date_new">6 時間前　　</span><wbr />
+<a href="http://www.youtube.com/watch?v=-hqyqPN6as8" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=-hqyqPN6as8">バンドリ！ ガールズバンドパーティ！　メインストーリー2章予告PV - ...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=MLF_Tcu4POg" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_a156eabc236b0bd8e7a0ab55b837719a45ec01ab.jpg" width="128" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-16px;" /></a>
+<div class="item_status">
+<span class="link_num over3">14<span>コメント</span></span>
+<span class="date date_new">7 時間前　　</span><wbr />
+<a href="http://www.youtube.com/watch?v=MLF_Tcu4POg" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=MLF_Tcu4POg">ベイブレードの最新シリーズがガチだけど覚悟できてる？　ベイブレード...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=DJJWgRULrEk" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_ff2cd65df7ad43a1b71c228223cc846bbe1da0ce.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over3">15<span>コメント</span></span>
+<span class="date date_new">8 時間前　　</span><wbr />
+<a href="http://www.youtube.com/watch?v=DJJWgRULrEk" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=DJJWgRULrEk">ベイブレードバースト「ガチンコレイヤーシリーズ編 -マスターブレーダ－セ...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=iaimi5gfbiE" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_21c0453b9e4a9c742409051439c855b0d1f35623.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over3">16<span>コメント</span></span>
+<span class="date date_new">6 時間前　　</span><wbr />
+<a href="http://www.youtube.com/watch?v=iaimi5gfbiE" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=iaimi5gfbiE">【KISS &amp; CRY】2019 BRAND-NEW髙橋大輔選手...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=_OeMf7tKDhE" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_cf746bab8a91608c77c489729fbb8f6e45db2ddd.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over3">16<span>コメント</span></span>
+<span class="date date_new">6 時間前　　</span><wbr />
+<a href="http://www.youtube.com/watch?v=_OeMf7tKDhE" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=_OeMf7tKDhE">牧野真莉愛、加賀楓（モーニング娘。’19）ツアーグッズお買い物コーナー＜...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=1KgUfckkKj0" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_7a7b577b87fcf4639e79cc5dce539c0be0110f5e.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over3">15<span>コメント</span></span>
+<span class="date date_new">6 時間前　　</span><wbr />
+<a href="http://www.youtube.com/watch?v=1KgUfckkKj0" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=1KgUfckkKj0">Drop's「毎日がラブソング」Music Video - YouTub...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=H5AKQC-RReY" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_6018f5ca37ff5e5e03677e4730c9c3737f23c7d4.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over3">16<span>コメント</span></span>
+<span class="date date_new">6 時間前　　</span><wbr />
+<a href="http://www.youtube.com/watch?v=H5AKQC-RReY" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=H5AKQC-RReY">Mrs. GREEN APPLE - ロマンチシズム（Short Ver...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=6NQbSN85kJQ" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_479b933eea44648cb37ea2af682ad2528d731b02.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over100">306<span>コメント</span></span>
+<span class="date date_new">20 時間前　　</span><wbr />
+<a href="http://www.youtube.com/watch?v=6NQbSN85kJQ" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=6NQbSN85kJQ">BUMP OF CHICKEN「Aurora」 - YouTube</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=bukHU5vmIU8" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_367f6065c43e92e6f27dfa54f340e4f7dd4b097b.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over100">102<span>コメント</span></span>
+<span class="date">2019-03-14 01:17</span><wbr />
+<a href="http://www.youtube.com/watch?v=bukHU5vmIU8" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=bukHU5vmIU8">【公式】「犬も食わない」メジャーアイドルファン（ミキ）VS 地下アイドル...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=px-DFt8qGCQ" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_7f44360dd6e12a71c12d3a3692c3d9ab41ba2e86.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over100">246<span>コメント</span></span>
+<span class="date date_new">20 時間前　　</span><wbr />
+<a href="http://www.youtube.com/watch?v=px-DFt8qGCQ" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=px-DFt8qGCQ">「アベンジャーズ／エンドゲーム」最新予告 - YouTube</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=RpW-q23nzFY" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_76334c63f876ecd183374de666f67733b7069676.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over20">22<span>コメント</span></span>
+<span class="date">2019-03-14 16:58</span><wbr />
+<a href="http://www.youtube.com/watch?v=RpW-q23nzFY" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=RpW-q23nzFY">Towers Prototype Trailer 1 - YouTube</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=y-JB-O8A-TA" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_eb09fd4991daa9a02d17a8234d18f4b527965e5a.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over20">83<span>コメント</span></span>
+<span class="date">2019-03-14 04:45</span><wbr />
+<a href="http://www.youtube.com/watch?v=y-JB-O8A-TA" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=y-JB-O8A-TA">Battlefield V — Official Firestorm R...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=EMaPwFca-iw" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_6e97e8da5b66a76dbe95baa6456fbc4a009e1be2.jpg" width="128" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-16px;" /></a>
+<div class="item_status">
+<span class="link_num over20">97<span>コメント</span></span>
+<span class="date">2019-03-13 20:13</span><wbr />
+<a href="http://www.youtube.com/watch?v=EMaPwFca-iw" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=EMaPwFca-iw">ジーニー役ウィル・スミスの姿に名曲「ホール・ニュー・ワールド」も！実写映...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=G85Sjeebn7g" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_e6da173efca80d666e99306a5bf6a65abcb9cacf.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over3">19<span>コメント</span></span>
+<span class="date date_new">16 時間前　　</span><wbr />
+<a href="http://www.youtube.com/watch?v=G85Sjeebn7g" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=G85Sjeebn7g">渡辺美優紀 - 夕暮れセンチメンタル - YouTube</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=ACIKoEkYHSM" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_9f87f04901fa8cfdbe3e5e99ac97f689d234b533.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over3">10<span>コメント</span></span>
+<span class="date date_new">4 時間前　　</span><wbr />
+<a href="http://www.youtube.com/watch?v=ACIKoEkYHSM" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=ACIKoEkYHSM">笑い過ぎて一生忘れられないTRPG　第4話 - YouTube</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=vG5BYoAKTLs" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_f05d432b69fb599f2c9e909ebf6e86e7d394ea4b.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over20">29<span>コメント</span></span>
+<span class="date date_new">17 時間前　　</span><wbr />
+<a href="http://www.youtube.com/watch?v=vG5BYoAKTLs" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=vG5BYoAKTLs">【歌ってみた】惑星ループ踊ってみた【ダブルキズナアイ】 - YouTub...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=rN-zl2gzb64" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_b929c1f0fc22090d107832816ca05f0b3e96b0d1.jpg" width="128" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-16px;" /></a>
+<div class="item_status">
+<span class="link_num over3">15<span>コメント</span></span>
+<span class="date date_new">18 時間前　　</span><wbr />
+<a href="http://www.youtube.com/watch?v=rN-zl2gzb64" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=rN-zl2gzb64">男性視聴者は男性Vtuberをどうみてるの？【集まれ！コウボーイ】 - ...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=S747rLiAeFE" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_eefa1da6bafc718dfe2313bb7cb8513101f76580.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over20">44<span>コメント</span></span>
+<span class="date date_new">18 時間前　　</span><wbr />
+<a href="http://www.youtube.com/watch?v=S747rLiAeFE" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=S747rLiAeFE">映画『アベンジャーズ／エンドゲーム』本予告編 - YouTube</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=AGsCcEt1xqA" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_1f064538b45464c690cddbaa9feb1fbe066f1d14.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over20">30<span>コメント</span></span>
+<span class="date date_new">19 時間前　　</span><wbr />
+<a href="http://www.youtube.com/watch?v=AGsCcEt1xqA" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=AGsCcEt1xqA">恋愛サーキュレーション、歌ってみた - 鈴木勝 - YouTube</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=EoDbaS_Yxr4" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_81700263a4c7085ecb3ffd36332991d55740f1bd.jpg" width="128" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-16px;" /></a>
+<div class="item_status">
+<span class="link_num over3">17<span>コメント</span></span>
+<span class="date date_new">19 時間前　　</span><wbr />
+<a href="http://www.youtube.com/watch?v=EoDbaS_Yxr4" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=EoDbaS_Yxr4">オレ流。友達がいなくても大学デビューする方法。 - YouTube</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=AUzm_Sa6Xeo" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_47f1995f97112ecd546181a383669c063503cb9e.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over20">57<span>コメント</span></span>
+<span class="date date_new">20 時間前　　</span><wbr />
+<a href="http://www.youtube.com/watch?v=AUzm_Sa6Xeo" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=AUzm_Sa6Xeo">劇場中編アニメーション『甲鉄城のカバネリ 海門決戦」本PV - YouT...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=TcMBFSGVi1c" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_d5756f7856660fbbe88793ae15b400b05164f814.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over100">125<span>コメント</span></span>
+<span class="date date_new">20 時間前　　</span><wbr />
+<a href="http://www.youtube.com/watch?v=TcMBFSGVi1c" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=TcMBFSGVi1c">Marvel Studios' Avengers: Endgame - ...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=F0nTOUVqpXk" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_6b1e5069e799f2ae5c3446cbbb324f7b2b228936.jpg" width="128" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-16px;" /></a>
+<div class="item_status">
+<span class="link_num over100">131<span>コメント</span></span>
+<span class="date date_new">21 時間前　　</span><wbr />
+<a href="http://www.youtube.com/watch?v=F0nTOUVqpXk" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=F0nTOUVqpXk">鬼龍院翔メイク動画 - YouTube</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=jsDmoxCfytE" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_365f77820629b353e87b7da9b8fd7c8a34d6676b.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over100">118<span>コメント</span></span>
+<span class="date date_new">22 時間前　　</span><wbr />
+<a href="http://www.youtube.com/watch?v=jsDmoxCfytE" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=jsDmoxCfytE">ＴＶアニメ『文豪ストレイドッグス』第3シーズンPV - YouTube</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=sudS58RQkbE" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_e5f65cfe0b96750a87dd04e60e4eaec1f00f1914.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over20">41<span>コメント</span></span>
+<span class="date">2019-03-14 18:07</span><wbr />
+<a href="http://www.youtube.com/watch?v=sudS58RQkbE" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=sudS58RQkbE">【自己紹介】はじめまして、Vtuber南です！｜HoneyWorks f...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=8gX9cbCG5TY" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_6d58587e6b7ab58d496ed0134571a68d33dd662e.jpg" width="128" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-16px;" /></a>
+<div class="item_status">
+<span class="link_num over100">179<span>コメント</span></span>
+<span class="date">2019-03-13 21:24</span><wbr />
+<a href="http://www.youtube.com/watch?v=8gX9cbCG5TY" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=8gX9cbCG5TY">全員はじめしゃちょーで「旅立ちの日に」歌ってみた - YouTube</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=gEDWrHcU8hg" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_dd4ed40720f75b818f50faf8409cdb888021a770.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over20">63<span>コメント</span></span>
+<span class="date">2019-03-12 21:37</span><wbr />
+<a href="http://www.youtube.com/watch?v=gEDWrHcU8hg" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=gEDWrHcU8hg">[Splatoon animation] Salmon Run - Yo...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=R862XJERaPc" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_d97e41534271bfd99c999da4f32a505ce355bfad.jpg" width="128" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-16px;" /></a>
+<div class="item_status">
+<span class="link_num over3">13<span>コメント</span></span>
+<span class="date date_new">22 時間前　　</span><wbr />
+<a href="http://www.youtube.com/watch?v=R862XJERaPc" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=R862XJERaPc">BGクラブ　詩子のおうちでホラゲオタ女子会♡ - YouTube</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=1H4o18U1MLM" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_07b62bd1b1dce60f82d1ec673c7a4623118752da.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over20">43<span>コメント</span></span>
+<span class="date date_new">20 時間前　　</span><wbr />
+<a href="http://www.youtube.com/watch?v=1H4o18U1MLM" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=1H4o18U1MLM">『PSYCHO-PASS サイコパス ３』PV第1弾 - YouTube</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=HwjRh07kWBQ" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_b9419e62ef1295954e607e94b10422de7a709ef5.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over3">14<span>コメント</span></span>
+<span class="date date_new">20 時間前　　</span><wbr />
+<a href="http://www.youtube.com/watch?v=HwjRh07kWBQ" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=HwjRh07kWBQ">【メシ我慢】1日何も食べてない奴に飯テロ仕掛けて我慢できるか！？ - Y...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=rM9Hm53EiHI" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_9ece2de3e45f6cf6b81b043d7b9d538a3cd1c5e1.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over3">14<span>コメント</span></span>
+<span class="date date_new">20 時間前　　</span><wbr />
+<a href="http://www.youtube.com/watch?v=rM9Hm53EiHI" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=rM9Hm53EiHI">GO a.k.a. 男澤魔術 from FLICK “大峠” feat....</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=on051vZxQl0" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_2b62ff61afe791adb072c4871f3608dae7eb8225.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over3">17<span>コメント</span></span>
+<span class="date date_new">21 時間前　　</span><wbr />
+<a href="http://www.youtube.com/watch?v=on051vZxQl0" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=on051vZxQl0">【漫画】プロゲーマーになるとどんな生活になるのか？【マンガ動画】 ...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=fj6Q7E1T234" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_fe672158cfa7c5b103e8cf83264cbe9eae2b6635.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over3">13<span>コメント</span></span>
+<span class="date date_new">22 時間前　　</span><wbr />
+<a href="http://www.youtube.com/watch?v=fj6Q7E1T234" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=fj6Q7E1T234">[MAMAMOO - Waggy] Comeback Stage | M...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=jMz_9LX6gdQ" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_189f6fcb80cfd81472dbdafbbd3ba5bdf0e675c8.jpg" width="128" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-16px;" /></a>
+<div class="item_status">
+<span class="link_num over3">14<span>コメント</span></span>
+<span class="date date_new">22 時間前　　</span><wbr />
+<a href="http://www.youtube.com/watch?v=jMz_9LX6gdQ" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=jMz_9LX6gdQ">ヒプノシスマイクをｗｗｗ絶叫しながらｗｗｗ声で動かすゲームをやってみたら...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=P_iOW66ylLg" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_852686c3459cebf5d4f8397f8409dfb4d707069c.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over3">19<span>コメント</span></span>
+<span class="date date_new">23 時間前　　</span><wbr />
+<a href="http://www.youtube.com/watch?v=P_iOW66ylLg" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=P_iOW66ylLg">[GWSN - Pinky Star (RUN)] Comeback S...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=UZmsgyNn3pc" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_09228b47f20f14da6487fce05c2b0b5ce02906e7.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over3">12<span>コメント</span></span>
+<span class="date date_new">23 時間前　　</span><wbr />
+<a href="http://www.youtube.com/watch?v=UZmsgyNn3pc" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=UZmsgyNn3pc">DEZERT 「血液がない！」【Official Music Video...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=ub-n8g9SIEk" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_9ea9d685ab2550a683e104335e3f1e91c18d644c.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over3">10<span>コメント</span></span>
+<span class="date">2019-03-14 15:36</span><wbr />
+<a href="http://www.youtube.com/watch?v=ub-n8g9SIEk" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=ub-n8g9SIEk">HJ CHANNEL(현중채널) -  Happy White Day ...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=muE4n40yR80" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_35bab78b5cdb5e186aab3955ff23109be83c79a8.jpg" width="128" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-16px;" /></a>
+<div class="item_status">
+<span class="link_num over3">19<span>コメント</span></span>
+<span class="date">2019-03-14 11:42</span><wbr />
+<a href="http://www.youtube.com/watch?v=muE4n40yR80" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=muE4n40yR80">小川淳也・立憲　NHKの放送姿勢に抗議：3/14 衆院・総務委員会 - ...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.nicovideo.jp/watch/sm34773478" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_dd17c21abc3404c3611c4ea57900b49c7e4b6c0f.jpg" width="128" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-16px;" /></a>
+<div class="item_status">
+<span class="link_num over3">11<span>コメント</span></span>
+<span class="date">2019-03-14 08:56</span><wbr />
+<a href="http://www.nicovideo.jp/watch/sm34773478" target="_blank" class="item_direct"> - www.nicovideo.jp</a></div>
+<div class="item_title"><a href="/url/www.nicovideo.jp/watch/sm34773478">ランボー　怒りのけもフレ２ - ニコニコ動画</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.nicovideo.jp/watch/sm34772964" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_170f58500fbef85fff3311a2db1a6b15e9ed4a90.jpg" width="128" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-16px;" /></a>
+<div class="item_status">
+<span class="link_num over3">13<span>コメント</span></span>
+<span class="date">2019-03-14 01:33</span><wbr />
+<a href="http://www.nicovideo.jp/watch/sm34772964" target="_blank" class="item_direct"> - www.nicovideo.jp</a></div>
+<div class="item_title"><a href="/url/www.nicovideo.jp/watch/sm34772964">もしもジャパリパークに降下したのがApex Legendsだったら - ...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=glhbfYV21J8" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_068116902d6340313b0b420d7b6a0c354e7186da.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over3">10<span>コメント</span></span>
+<span class="date">2019-03-13 23:15</span><wbr />
+<a href="http://www.youtube.com/watch?v=glhbfYV21J8" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=glhbfYV21J8">【一発で当てたら神】劇団員がガチ演技でクイズしてみた結果…「３秒顔女優」...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=KfqlcdDIv1k" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_46f3725d920867c064f7c300de56aa9ce3d633d2.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over3">17<span>コメント</span></span>
+<span class="date">2019-03-13 23:06</span><wbr />
+<a href="http://www.youtube.com/watch?v=KfqlcdDIv1k" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=KfqlcdDIv1k">世界70カ国の「自国民の見分け方」。| VOGUE JAPAN - Yo...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=bBM80PQqkxI" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_5f215296a916c6452d27f1991debd7667bdd62f0.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over20">29<span>コメント</span></span>
+<span class="date">2019-03-13 19:58</span><wbr />
+<a href="http://www.youtube.com/watch?v=bBM80PQqkxI" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=bBM80PQqkxI">【また号泣】不器用彼氏が本気でホワイトデーにサプライズしたらふくれな号泣...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=A-Ix-lQoag4" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_0373409fd938a9941ec54cef38394fd66dce27ee.jpg" width="128" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-16px;" /></a>
+<div class="item_status">
+<span class="link_num over3">11<span>コメント</span></span>
+<span class="date">2019-03-13 12:32</span><wbr />
+<a href="http://www.youtube.com/watch?v=A-Ix-lQoag4" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=A-Ix-lQoag4">【第322回】DL違法化範囲等拡大等について著作権改正見送りへ。裏側を話...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=XGMwWc5ZuoI" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_45e6ab4f91b662e0d62518b28fef1cf62750179e.jpg" width="128" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-16px;" /></a>
+<div class="item_status">
+<span class="link_num over20">70<span>コメント</span></span>
+<span class="date">2019-03-13 11:06</span><wbr />
+<a href="http://www.youtube.com/watch?v=XGMwWc5ZuoI" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=XGMwWc5ZuoI">超人機メタルダー　第01話[公式] - YouTube</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.youtube.com/watch?v=GOWVeAvVawQ" style="width:96px;height:96px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_7196322e76df2e4cdb2ba5ec7858feca75033f58.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over3">17<span>コメント</span></span>
+<span class="date">2019-03-12 19:50</span><wbr />
+<a href="http://www.youtube.com/watch?v=GOWVeAvVawQ" target="_blank" class="item_direct"> - www.youtube.com</a></div>
+<div class="item_title"><a href="/url/www.youtube.com/watch?v=GOWVeAvVawQ">Reol New EP “文明EP/Bunmei EP“ XFDMovi...</a></div>
+</div>
+
+</div>
+<div class='pagenavi'><a href='/movie/newitem/'>動画を新着順で見る</a></div><script type="text/javascript">footerbox_ad();</script></div>
+</div>
+
+<div id="side_column">
+<div id="side_column_inner">
+<script type="text/javascript">sidebox_ad1()</script>
+<div id="side_flash" style="margin-bottom:4px;">
+<div class="list_title"><h2><a href="/all/newitem/">速報</a></h2></div>
+<div class="item_list_box"><div class="item">
+<div class="item_status">
+<span class="link_num over20">44<span>コメント</span></span>
+<span class="date date_new">58 分前　　　</span>
+<a href="http://natalie.mu/music/news/324043" target="_blank" class="item_direct"> - natalie.mu</a></div>
+<div class="item_title"><a href="/url/natalie.mu/music/news/324043">星野源のNHK特番OA決定、音楽制作や初5大ドームツアー語る - 音楽ナタリー</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over20">29<span>コメント</span></span>
+<span class="date date_new">1 時間前　　</span>
+<a href="http://lineblog.me/kitamura_yukiya/archives/1564397.html" target="_blank" class="item_direct"> - lineblog.me</a></div>
+<div class="item_title"><a href="/url/lineblog.me/kitamura_yukiya/archives/1564397.html">北村有起哉 公式ブログ - 夜の織部 - Powered by LINE</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">10<span>コメント</span></span>
+<span class="date date_new">1 時間前　　</span>
+<a href="http://www.oricon.co.jp/news/2131651/full/" target="_blank" class="item_direct"> - www.oricon.co.jp</a></div>
+<div class="item_title"><a href="/url/www.oricon.co.jp/news/2131651/full/">星野源、3・25NHK特番放送決定　5大ドームツアー直後に直撃＆最新ライブ映像も | ORICON NEWS</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over100">318<span>コメント</span></span>
+<span class="date date_new">1 時間前　　</span>
+<a href="http://www3.nhk.or.jp/news/html/20190315/k10011849741000.html" target="_blank" class="item_direct"> - www3.nhk.or.jp</a></div>
+<div class="item_title"><a href="/url/www3.nhk.or.jp/news/html/20190315/k10011849741000.html">「エヴァンゲリオン」コスプレ姿で住宅侵入 現金盗んだ疑い | NHKニュース</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">16<span>コメント</span></span>
+<span class="date date_new">1 時間前　　</span>
+<a href="http://www.cnn.co.jp/world/35134279.html" target="_blank" class="item_direct"> - www.cnn.co.jp</a></div>
+<div class="item_title"><a href="/url/www.cnn.co.jp/world/35134279.html">CNN.co.jp : ＮＺ銃乱射、４０人死亡と首相　４人を拘束</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">10<span>コメント</span></span>
+<span class="date date_new">2 時間前　　</span>
+<a href="http://www.zakzak.co.jp/soc/news/190315/soc1903150008-n1.html" target="_blank" class="item_direct"> - www.zakzak.co.jp</a></div>
+<div class="item_title"><a href="/url/www.zakzak.co.jp/soc/news/190315/soc1903150008-n1.html">【有本香の以毒制毒】安倍首相相手に“ごっこ”するアホ議員たち…「平和憲法」クイズはこう出題せよ！ （1/2ページ） - zakzak</a></div>
+</div>
+<div class="more"><a href="/all/newitem/">速報</a></div></div>
+</div>
+<div id="side_imgs" style="margin-bottom:4px;">
+<div class="item_list_box"><div class="item item_media">
+<a class="trimming thumbnail" href="/url/www3.nhk.or.jp/news/html/20190315/k10011849741000.html" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_27d88f8f4f9b7657637da9a69cfc7f9e40002e22.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over100">318<span>コメント</span></span>
+<span class="date date_new">1 時間前　　</span><wbr />
+<a href="http://www3.nhk.or.jp/news/html/20190315/k10011849741000.html" target="_blank" class="item_direct"> - www3.nhk.or.jp</a></div>
+<div class="item_title"><a href="/url/www3.nhk.or.jp/news/html/20190315/k10011849741000.html">「エヴァンゲリオン」コスプレ姿で住宅侵入 現金盗んだ疑い | NHKニュ...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.mbs.jp/news/sp/zenkokunews/20190315/3623043.shtml" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_240a1a28cd32ea60149cf184d9cc5e3d245ac6cc.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over100">106<span>コメント</span></span>
+<span class="date date_new">4 時間前　　</span><wbr />
+<a href="http://www.mbs.jp/news/sp/zenkokunews/20190315/3623043.shtml" target="_blank" class="item_direct"> - www.mbs.jp</a></div>
+<div class="item_title"><a href="/url/www.mbs.jp/news/sp/zenkokunews/20190315/3623043.shtml">【現場から、】「消えた留学生」、東京福祉大の７００人所在不明に | MB...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.tokyo-sports.co.jp/entame/entertainment/1309606/" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_450146d80bbd58634828aaf8c94fe0229ad836a0.jpg" width="96" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:0px;" /></a>
+<div class="item_status">
+<span class="link_num over20">96<span>コメント</span></span>
+<span class="date date_new">5 時間前　　</span><wbr />
+<a href="http://www.tokyo-sports.co.jp/entame/entertainment/1309606/" target="_blank" class="item_direct"> - www.tokyo-sports.co.jp</a></div>
+<div class="item_title"><a href="/url/www.tokyo-sports.co.jp/entame/entertainment/1309606/">ピエール瀧容疑者ブチ切れ奇行　一度スイッチ入ると豹変…警察沙汰過去も</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/getnews.jp/archives/2133315" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_76914cbcd1ff991bc03f70be1fed916bf00224e6.jpg" width="96" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:0px;" /></a>
+<div class="item_status">
+<span class="link_num over20">61<span>コメント</span></span>
+<span class="date date_new">7 時間前　　</span><wbr />
+<a href="http://getnews.jp/archives/2133315" target="_blank" class="item_direct"> - getnews.jp</a></div>
+<div class="item_title"><a href="/url/getnews.jp/archives/2133315">「ガチヤバイ!? リアルガチでやばいかも!?」日本年金機構が軽いノリのツ...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www3.nhk.or.jp/news/html/20190315/k10011849611000.html" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_2cad6eaa573c268025916a64e7423e686f7ae918.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over3">14<span>コメント</span></span>
+<span class="date date_new">2 時間前　　</span><wbr />
+<a href="http://www3.nhk.or.jp/news/html/20190315/k10011849611000.html" target="_blank" class="item_direct"> - www3.nhk.or.jp</a></div>
+<div class="item_title"><a href="/url/www3.nhk.or.jp/news/html/20190315/k10011849611000.html">小６女児２人死亡 父親が連名で手紙「これ以上調査望まず」 | NHKニュ...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.itmedia.co.jp/business/articles/1903/15/news030.html" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_8246600bb84b97828755ff12021c2b9667fbe8cd.jpg" width="144" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-24px;" /></a>
+<div class="item_status">
+<span class="link_num over100">214<span>コメント</span></span>
+<span class="date date_new">10 時間前　　</span><wbr />
+<a href="http://www.itmedia.co.jp/business/articles/1903/15/news030.html" target="_blank" class="item_direct"> - www.itmedia.co.jp</a></div>
+<div class="item_title"><a href="/url/www.itmedia.co.jp/business/articles/1903/15/news030.html">新幹線と飛行機の壁　「4時間」「1万円」より深刻な「1カ月前の壁」 (1...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/gigazine.net/news/20190315-epic-game-launcher-send-steam-data/" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_6c78fbae7da27c9def205843754a418c85de6e61.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over20">22<span>コメント</span></span>
+<span class="date date_new">5 時間前　　</span><wbr />
+<a href="http://gigazine.net/news/20190315-epic-game-launcher-send-steam-data/" target="_blank" class="item_direct"> - gigazine.net</a></div>
+<div class="item_title"><a href="/url/gigazine.net/news/20190315-epic-game-launcher-send-steam-data/">人気バトルロイヤル「フォートナイト」の起動ソフトがSteamのデータをこ...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.daily.co.jp/baseball/2019/03/15/0012148570.shtml" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_2043fed5b9e7d8807b29c2a327f222c72da351d4.jpg" width="108" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-6px;" /></a>
+<div class="item_status">
+<span class="link_num over20">47<span>コメント</span></span>
+<span class="date date_new">7 時間前　　</span><wbr />
+<a href="http://www.daily.co.jp/baseball/2019/03/15/0012148570.shtml" target="_blank" class="item_direct"> - www.daily.co.jp</a></div>
+<div class="item_title"><a href="/url/www.daily.co.jp/baseball/2019/03/15/0012148570.shtml">堀内恒夫氏、すられた財布が一転…妻激怒「本当は黙っていたいけど」と謝罪/...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.itmedia.co.jp/news/articles/1903/15/news081.html" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_6de173a13293e4db34483e9d9b245a0445f49e5a.jpg" width="174" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-39px;" /></a>
+<div class="item_status">
+<span class="link_num over100">184<span>コメント</span></span>
+<span class="date date_new">6 時間前　　</span><wbr />
+<a href="http://www.itmedia.co.jp/news/articles/1903/15/news081.html" target="_blank" class="item_direct"> - www.itmedia.co.jp</a></div>
+<div class="item_title"><a href="/url/www.itmedia.co.jp/news/articles/1903/15/news081.html">Dropbox、無料版のアクセス端末を3台までにひっそり制限 - ITm...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.jiji.com/jc/article?k=2019031500746&g=int" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_a3f0d6a150ed59d1fd21b2d05b3b7c03cf2c1046.jpg" width="144" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-24px;" /></a>
+<div class="item_status">
+<span class="link_num over20">80<span>コメント</span></span>
+<span class="date date_new">5 時間前　　</span><wbr />
+<a href="http://www.jiji.com/jc/article?k=2019031500746&g=int" target="_blank" class="item_direct"> - www.jiji.com</a></div>
+<div class="item_title"><a href="/url/www.jiji.com/jc/article?k=2019031500746&g=int">非核化交渉、中断を検討＝米国に譲歩せず－北朝鮮次官：時事ドットコム</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/this.kiji.is/479175422691869793" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_c00f28c466e31f1d15e5611c384933b5aed87532.jpg" width="96" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:0px;" /></a>
+<div class="item_status">
+<span class="link_num over20">58<span>コメント</span></span>
+<span class="date date_new">2 時間前　　</span><wbr />
+<a href="http://this.kiji.is/479175422691869793" target="_blank" class="item_direct"> - this.kiji.is</a></div>
+<div class="item_title"><a href="/url/this.kiji.is/479175422691869793">NZ銃乱射で40人死亡と地元警察 ｜ 共同通信</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/j-town.net/tokyo/research/results/277142.html" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_b149314f1290ba95fa133a733dd88279be7ef8b0.jpg" width="135" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-19px;" /></a>
+<div class="item_status">
+<span class="link_num over20">23<span>コメント</span></span>
+<span class="date date_new">11 時間前　　</span><wbr />
+<a href="http://j-town.net/tokyo/research/results/277142.html" target="_blank" class="item_direct"> - j-town.net</a></div>
+<div class="item_title"><a href="/url/j-town.net/tokyo/research/results/277142.html">好きなビールメーカーといえば？　2位「サッポロ」、1位はやっぱり... ...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/gendai.ismedia.jp/articles/-/63519" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_94fccd2bcf0851a4c487b84891cabf1bd84a93a7.jpg" width="287" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-95px;" /></a>
+<div class="item_status">
+<span class="link_num over100">104<span>コメント</span></span>
+<span class="date date_new">11 時間前　　</span><wbr />
+<a href="http://gendai.ismedia.jp/articles/-/63519" target="_blank" class="item_direct"> - gendai.ismedia.jp</a></div>
+<div class="item_title"><a href="/url/gendai.ismedia.jp/articles/-/63519">徴用工問題「日本から韓国への制裁検討」がやむを得ない理由（長谷川 幸洋）...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/togetter.com/li/1328278" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_01972322216ef2851f9d996ad0962ae793b72c71.jpg" width="182" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-43px;" /></a>
+<div class="item_status">
+<span class="link_num over20">59<span>コメント</span></span>
+<span class="date date_new">20 時間前　　</span><wbr />
+<a href="http://togetter.com/li/1328278" target="_blank" class="item_direct"> - togetter.com</a></div>
+<div class="item_title"><a href="/url/togetter.com/li/1328278">ピエール瀧さんに対するおぎやはぎの発言が「この視点は大事」と称賛される「...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www3.nhk.or.jp/news/html/20190315/k10011849641000.html" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_5e145dcee240eb81d8e07a646eea0abc53302403.jpg" width="96" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:0px;" /></a>
+<div class="item_status">
+<span class="link_num over20">69<span>コメント</span></span>
+<span class="date date_new">2 時間前　　</span><wbr />
+<a href="http://www3.nhk.or.jp/news/html/20190315/k10011849641000.html" target="_blank" class="item_direct"> - www3.nhk.or.jp</a></div>
+<div class="item_title"><a href="/url/www3.nhk.or.jp/news/html/20190315/k10011849641000.html">モスク銃乱射「少なくとも40人死亡」 ＮＺ首相 | NHKニュース</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/hamusoku.com/archives/10010088.html" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_9ee2fed98f4da149a3729c005ad470a92ef562b8.jpg" width="96" height="109" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:0px;" /></a>
+<div class="item_status">
+<span class="link_num over3">17<span>コメント</span></span>
+<span class="date date_new">18 時間前　　</span><wbr />
+<a href="http://hamusoku.com/archives/10010088.html" target="_blank" class="item_direct"> - hamusoku.com</a></div>
+<div class="item_title"><a href="/url/hamusoku.com/archives/10010088.html">やよい軒はおかずスティール防ぐ気ないんか？:ハムスター速報</a></div>
+</div>
+</div>
+</div>
+
+
+<script type="text/javascript">sidebox_ad2()</script>
+</div>
+</div>
+
+</div><!-- end field_inner -->
+</div><!-- end field-->
+
+
+<div id="footer_menu_bar" class="menu_bar">
+<div id="footer_menu_bar_inner" class="menu_bar_inner"><ul><li><a href="/">トップ</a></li><li><a href="/all/newitem/">速報</a></li><li><a href="/all/">総合</a></li><li><a href="/society/">政治経済</a></li><li><a href="/entertainment/">エンタメ</a></li><li><a href="/sports/">スポーツ</a></li><li><a href="/itnews/">IT</a></li><li><a href="/international/">海外</a></li><li><a href="/science/">科学</a></li><li><a href="/2ch/">2ch</a></li><li><a href="/neta/">ネタ</a></li><li><a href="/movie/" class="selected">動画</a></li><li><a href="/comic/">マンガ</a></li><li><a href="/ranking/day/">昨日の人気記事</a></li></ul></div>
+</div><!-- /menu_bar -->
+<div id="footer">
+<div id="footer_inner">
+<a href="/" title="ソーシャルニュース セロン"><img src="/img/logo.png" width="120px" height="24px" /></a>
+<div style="margin:12px 0 6px 0;"><a href="https://twitter.com/ceron_jp?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="true">@ceron_jpをフォロー</a><script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></div>
+<a href="/help.html">このサイトについて</a>　
+<a href="/top/?type=rss">RSS</a>　
+<a href="/inquiry.html">ご意見・お問い合わせ</a>　
+<a href="https://crea14.jp/">運営会社</a>
+<br /><br />
+</div><!-- end footer_inner-->
+</div><!-- end footer-->
+
+</div><!-- end main-->
+
+<script type="text/javascript"><!--
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-3880305-12', 'ceron.jp');
+ga('send', 'pageview');
+--></script>
+
+</body>
+</html>
