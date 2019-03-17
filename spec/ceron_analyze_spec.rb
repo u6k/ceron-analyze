@@ -430,8 +430,6 @@ RSpec.describe Crawline::Engine do
     @engine.crawl("https://ceron.jp/")
     context = @engine.parse("https://ceron.jp/")
 
-    pp context
-
     expect(context["2ch"].size).to be > 0
     expect(context["all"].size).to be > 0
     expect(context["comic"].size).to be > 0
