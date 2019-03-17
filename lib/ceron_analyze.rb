@@ -17,8 +17,7 @@ module CeronAnalyze
     end
 
     def valid?
-      ((not @category.nil?) &&
-        (not @related_links.empty?) &&
+      ((not @related_links.empty?) &&
         (not @feeds.empty?))
     end
 
@@ -27,7 +26,7 @@ module CeronAnalyze
     end
 
     def parse(context)
-      context[@category] = @feeds
+      context[@category] = @feeds if not @category.nil?
     end
 
     private
@@ -65,7 +64,7 @@ module CeronAnalyze
     def self.get_logger
       if @@logger.nil?
         @@logger = Logger.new(STDOUT)
-        @@logger.level = "DEBUG"
+        @@logger.level = ENV["SHR_LOGGER_LEVEL"] if ENV.has_key?("SHR_LOGGER_LEVEL")
       end
 
       @@logger

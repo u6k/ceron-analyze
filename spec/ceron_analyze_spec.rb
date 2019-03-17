@@ -1,3 +1,5 @@
+require "webmock/rspec"
+
 RSpec.describe CeronAnalyze do
   it "has a version number" do
     expect(CeronAnalyze::VERSION).not_to be nil
@@ -338,3 +340,107 @@ RSpec.describe CeronAnalyze::FeedParser do
     end
   end
 end
+
+RSpec.describe Crawline::Engine do
+  before do
+    # Setup webmock
+    WebMock.enable!
+
+    WebMock.stub_request(:get, "https://ceron.jp/2ch/").to_return(
+      body: File.open("spec/data/2ch.html").read,
+      status: [200, "OK"])
+
+    WebMock.stub_request(:get, "https://ceron.jp/all/").to_return(
+      body: File.open("spec/data/all.html").read,
+      status: [200, "OK"])
+
+    WebMock.stub_request(:get, "https://ceron.jp/all/newitem/").to_return(
+      body: File.open("spec/data/all_newitem.html").read,
+      status: [200, "OK"])
+
+    WebMock.stub_request(:get, "https://ceron.jp/comic/").to_return(
+      body: File.open("spec/data/comic.html").read,
+      status: [200, "OK"])
+
+    WebMock.stub_request(:get, "https://ceron.jp/entertainment/").to_return(
+      body: File.open("spec/data/entertainment.html").read,
+      status: [200, "OK"])
+
+    WebMock.stub_request(:get, "https://ceron.jp/").to_return(
+      body: File.open("spec/data/index.html").read,
+      status: [200, "OK"])
+
+    WebMock.stub_request(:get, "https://ceron.jp/international/").to_return(
+      body: File.open("spec/data/international.html").read,
+      status: [200, "OK"])
+
+    WebMock.stub_request(:get, "https://ceron.jp/itnews/").to_return(
+      body: File.open("spec/data/itnews.html").read,
+      status: [200, "OK"])
+
+    WebMock.stub_request(:get, "https://ceron.jp/movie/").to_return(
+      body: File.open("spec/data/movie.html").read,
+      status: [200, "OK"])
+
+    WebMock.stub_request(:get, "https://ceron.jp/neta/").to_return(
+      body: File.open("spec/data/neta.html").read,
+      status: [200, "OK"])
+
+    WebMock.stub_request(:get, "https://ceron.jp/ranking/day/").to_return(
+      body: File.open("spec/data/ranking_day.html").read,
+      status: [200, "OK"])
+
+    WebMock.stub_request(:get, "https://ceron.jp/science/").to_return(
+      body: File.open("spec/data/science.html").read,
+      status: [200, "OK"])
+
+    WebMock.stub_request(:get, "https://ceron.jp/society/").to_return(
+      body: File.open("spec/data/society.html").read,
+      status: [200, "OK"])
+
+    WebMock.stub_request(:get, "https://ceron.jp/sports/").to_return(
+      body: File.open("spec/data/sports.html").read,
+      status: [200, "OK"])
+
+    WebMock.disable_net_connect!(allow: "s3")
+
+    # Setup engine
+    downloader = Crawline::Downloader.new("ceron-analyze/#{CeronAnalyze::VERSION} (https://github.com/u6k/ceron-analyze)")
+
+    repo = Crawline::ResourceRepository.new(
+      ENV["AWS_S3_ACCESS_KEY"],
+      ENV["AWS_S3_SECRET_KEY"],
+      ENV["AWS_S3_REGION"],
+      ENV["AWS_S3_BUCKET"],
+      ENV["AWS_S3_ENDPOINT"],
+      ENV["AWS_S3_FORCE_PATH_STYLE"])
+
+    parsers = {
+      /https:\/\/ceron\.jp\/.*/ => CeronAnalyze::FeedParser
+    }
+
+    @engine = Crawline::Engine.new(downloader, repo, parsers, 0.001)
+  end
+
+  after do
+    WebMock.disable!
+  end
+
+  it "is context data when crawl" do
+    @engine.crawl("https://ceron.jp/")
+    context = @engine.parse("https://ceron.jp/")
+
+    expect(context["2ch"].size).to be > 0
+    expect(context["all"].size).to be > 0
+    expect(context["comic"].size).to be > 0
+    expect(context["entertainment"].size).to be > 0
+    expect(context["international"].size).to be > 0
+    expect(context["itnews"].size).to be > 0
+    expect(context["movie"].size).to be > 0
+    expect(context["neta"].size).to be > 0
+    expect(context["science"].size).to be > 0
+    expect(context["society"].size).to be > 0
+    expect(context["sports"].size).to be > 0
+  end
+end
+
