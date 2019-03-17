@@ -1,39 +1,69 @@
-# CeronAnalyze
+# Ceron解析 _(ceron-analyze)_
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/ceron_analyze`. To experiment with that code, run `bin/console` for an interactive prompt.
+[![Travis](https://img.shields.io/travis/u6k/ceron-analyze.svg)](https://travis-ci.org/u6k/ceron-analyze) [![license](https://img.shields.io/github/license/u6k/ceron-analyze.svg)](https://github.com/u6k/ceron-analyze/blob/master/LICENSE) [![GitHub release](https://img.shields.io/github/release/u6k/ceron-analyze.svg)](https://github.com/u6k/ceron-analyze/releases) [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme) [![WebSite](https://img.shields.io/website-up-down-green-red/https/shields.io.svg?label=u6k.Redmine)](https://redmine.u6k.me/projects/ceron-analyze)
 
-TODO: Delete this and the text above, and describe your gem
+> "ceron.jp"を解析する
 
-## Installation
+__Table of Contents__
 
-Add this line to your application's Gemfile:
+- [Install](#Install)
+- [Usage](#Usage)
+- [Other](#Other)
+- [API](#API)
+- [Maintainer](#Maintainer)
+- [Contributing](#Contributing)
+- [License](#License)
 
-```ruby
-gem 'ceron_analyze'
+## Install
+
+Rubyを使用します。
+
+```
+$ ruby --version
+ruby 2.6.0p0 (2018-12-25 revision 66547) [x86_64-linux]
 ```
 
-And then execute:
+`Gemfile`に次を追加して、`bundle install`でインストールします。
 
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install ceron_analyze
+```
+gem 'crawline', :git => 'https://github.com/u6k/crawline.git'
+gem 'ceron_analyze', :git => 'https://github.com/u6k/ceron-analyze.git'
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+```
+$ ceron-analyze help
+Commands:
+  ceron-analyze crawl           # Crawl ceron.jp
+  ceron-analyze help [COMMAND]  # Describe available commands or one specific command
+  ceron-analyze version         # Display version
+```
 
-## Development
+## Other
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+最新の情報は、 [Wiki - ceron-analyze - u6k.Redmine](https://redmine.u6k.me/projects/ceron-analyze/wiki) を参照してください。
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+- [ビルド手順](https://redmine.u6k.me/projects/ceron-analyze/wiki/%E3%83%93%E3%83%AB%E3%83%89%E6%89%8B%E9%A0%86)
+- [リリース手順](https://redmine.u6k.me/projects/ceron-analyze/wiki/%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E6%89%8B%E9%A0%86)
+
+## API
+
+[APIリファレンス](https://u6k.github.io/ceron-analyze/) を参照してください。
+
+## Maintainer
+
+- u6k
+    - [Twitter](https://twitter.com/u6k_yu1)
+    - [GitHub](https://github.com/u6k)
+    - [Blog](https://blog.u6k.me/)
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/ceron_analyze. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+当プロジェクトに興味を持っていただき、ありがとうございます。[新しいチケットを起票](https://redmine.u6k.me/projects/ceron-analyze/issues/new)していただくか、プルリクエストをサブミットしていただけると幸いです。
 
-## Code of Conduct
+当プロジェクトは、[Contributor Covenant](https://www.contributor-covenant.org/version/1/4/code-of-conduct)に準拠します。
 
-Everyone interacting in the CeronAnalyze project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/ceron_analyze/blob/master/CODE_OF_CONDUCT.md).
+## License
+
+[MIT License](https://github.com/u6k/ceron-analyze/blob/master/LICENSE)
