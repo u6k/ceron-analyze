@@ -75,7 +75,7 @@ module CeronAnalyze
   class CLI < Thor
     desc "version", "Display version"
     def version
-      puts CeronAnalyze::version
+      puts CeronAnalyze::VERSION
     end
 
     desc "crawl", "Crawl ceron.jp"
@@ -88,7 +88,7 @@ module CeronAnalyze
     def crawl
       downloader = Crawline::Downloader.new("ceron-analyze/#{CeronAnalyze::VERSION} (https://github.com/u6k/ceron-analyze)")
 
-      repo = Crawline::ResourceRepository.new(s3_access_key, s3_secret_key, s3_region, s3_bucket, s3_endpoint, s3_force_path_style)
+      repo = Crawline::ResourceRepository.new(options.s3_access_key, options.s3_secret_key, options.s3_region, options.s3_bucket, options.s3_endpoint, options.s3_force_path_style)
 
       parsers = {
         /https:\/\/ceron\.jp\/.*/ => CeronAnalyze::FeedParser
