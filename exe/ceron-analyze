@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require "ceron_analyze"
+
+CeronAnalyze::CLI.start(ARGV)

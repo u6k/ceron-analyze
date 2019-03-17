@@ -1,0 +1,681 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta name="keywords" content="ニュース,ニュース速報,最新ニュース" />
+<meta name="description" content="新着順の記事一覧です。Ceron（セロン）はツイッターで話題になっているニュースをみんなのコメント付きでお届けするソーシャルニュースサイトです。" />
+<meta name="viewport" content="width=device-width; initial-scale=1.0;" />
+<meta property="fb:app_id" content="439371879421477" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@ceron_jp" />
+<meta property="og:title" content="速報 - Ceron" />
+<meta property="og:url" content="https://ceron.jp/all/newitem/" />
+<meta property="og:image" content="https://ceron.jp/img/ogp.png" />
+<meta property="og:description" content="新着順の記事一覧です。Ceron（セロン）はツイッターで話題になっているニュースをみんなのコメント付きでお届けするソーシャルニュースサイトです。" />
+<meta property="og:site_name" content="Ceron" />
+
+<link rel="stylesheet" type="text/css" href="/css.css" media="all" />
+<link rel="stylesheet" type="text/css" href="/js/jquery-ui.css" media="all" />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="https://ceron.jp/all/newitem/?type=rss" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="Ceron.jp記事検索" />
+<script type="text/javascript"><!--
+var genre = "";
+var keyword = "";
+//--></script>
+<script type="text/javascript" src="/js/library.js"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+<script type="text/javascript">
+var microadCompass = microadCompass || {};
+microadCompass.queue = microadCompass.queue || [];
+</script>
+<script type="text/javascript" charset="UTF-8" src="//j.microad.net/js/compass.js" onload="new microadCompass.AdInitializer().initialize();" async></script>
+<script type="text/javascript">$(function(){$('img.lazy').lazyload({threshold:200});});</script>
+
+<title>速報 - Ceron</title>
+</head>
+
+<body>
+<div id="main" class="flash">
+
+<div id="header">
+<div id="header_inner">
+<div id="leader">ツイッターのコメントで見るニュースサイト・セロン　 </div>
+
+<div id="header_menu" onclick="toggle('drop_menu');">
+<img src="/img/icon_menu.png" width="32px" height="32px" />
+<div id="drop_menu" style="display:none;">
+<ul>
+<li><a href="/">トップ</a></li><li><a href="/all/newitem/" class="selected">速報</a></li><li><a href="/all/">総合</a></li><li><a href="/society/">政治経済</a></li><li><a href="/entertainment/">エンタメ</a></li><li><a href="/sports/">スポーツ</a></li><li><a href="/itnews/">IT</a></li><li><a href="/international/">海外</a></li><li><a href="/science/">科学</a></li><li><a href="/2ch/">2ch</a></li><li><a href="/neta/">ネタ</a></li><li><a href="/movie/">動画</a></li><li><a href="/comic/">マンガ</a></li><li><a href="/ranking/day/">昨日の人気記事</a></li>
+<li><a href='/registered.html'>メディア一覧</a></li>
+<li><a href='https://twitter.com/ceron_jp' target='_blank'>Twitter</a></li>
+<li><a href='/help.html'>ヘルプ</a></li>
+<li><a href='/help.html#_about'>Ceronについて</a></li>
+</ul>
+</div>
+</div>
+
+
+<a id="logo" href="/" title="ソーシャルニュース セロン">
+<img class="logo_l" src="/img/logo.png" width="180px" height="36px" />
+<img class="logo_s" src="/img/logo.png" width="112px" height="22px" /></a>
+
+
+<form action="/search" method="get" name="search" id="header_search" onsubmit="return headerSearchReady();">
+<div id="input_box"><input type="text" id="header_search_textarea" class="search" name="q" value="" 
+placeholder="キーワード"
+onclick="if(!this.value){this.setAttribute('AutoComplete','on');}" 
+onkeyup="this.setAttribute('AutoComplete', 'off');" 
+onsubmit="this.setAttribute('AutoComplete', 'on');" 
+/></div>
+<div class="search_button" onclick="document.getElementById('submitButton').click();"></div>
+<input type="submit" style="display:none;" id="submitButton" /> 
+</form>
+
+</div><!--end header_inner-->
+</div><!--end header-->
+
+<div id="menu_bar" class="menu_bar">
+<div id="menu_bar_inner" class="menu_bar_inner"><ul><li><a href="/">トップ</a></li><li><a href="/all/newitem/" class="selected">速報</a></li><li><a href="/all/">総合</a></li><li><a href="/society/">政治経済</a></li><li><a href="/entertainment/">エンタメ</a></li><li><a href="/sports/">スポーツ</a></li><li><a href="/itnews/">IT</a></li><li><a href="/international/">海外</a></li><li><a href="/science/">科学</a></li><li><a href="/2ch/">2ch</a></li><li><a href="/neta/">ネタ</a></li><li><a href="/movie/">動画</a></li><li><a href="/comic/">マンガ</a></li><li><a href="/ranking/day/">昨日の人気記事</a></li></ul></div>
+</div><!-- /menu_bar -->
+<div id="fixed_header" class="menu_bar" style="margin-top:-240px;">
+<div id="fixed_header_inner" class="menu_bar_inner">
+<a href="/">
+<img class="logo_l" src="/img/logo.png" width="90px" height="18px" />
+<img class="logo_s" src="/img/logo.png" width="45px" height="9px" />
+</a>
+</div>
+</div>
+
+<div id="field">
+
+<div id="field_inner">
+
+<div id="main_column">
+<div id="main_column_inner"><div id="pan"><a href='/'>TOP</a> &gt; 速報</div><script type="text/javascript">header_ad();</script>
+<div class="item_list_box">
+<h1 class="page_title">速報 <a href="https://ceron.jp/all/newitem/?type=rss" class="icon icon_rss"></a></h1>
+<div class="under"><a href="/all/newitem/" class="selected">10コメント以上</a> <a href="/all/newitem/?c_limit=0">すべて</a>  </div> <div class="item">
+<div class="item_status">
+<span class="link_num over20">44<span>コメント</span></span>
+<span class="date date_new">57 分前　　　</span>
+<a href="http://natalie.mu/music/news/324043" target="_blank" class="item_direct"> - natalie.mu</a></div>
+<div class="item_title"><a href="/url/natalie.mu/music/news/324043">星野源のNHK特番OA決定、音楽制作や初5大ドームツアー語る - 音楽ナタリー</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over20">29<span>コメント</span></span>
+<span class="date date_new">1 時間前　　</span>
+<a href="http://lineblog.me/kitamura_yukiya/archives/1564397.html" target="_blank" class="item_direct"> - lineblog.me</a></div>
+<div class="item_title"><a href="/url/lineblog.me/kitamura_yukiya/archives/1564397.html">北村有起哉 公式ブログ - 夜の織部 - Powered by LINE</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">10<span>コメント</span></span>
+<span class="date date_new">1 時間前　　</span>
+<a href="http://www.oricon.co.jp/news/2131651/full/" target="_blank" class="item_direct"> - www.oricon.co.jp</a></div>
+<div class="item_title"><a href="/url/www.oricon.co.jp/news/2131651/full/">星野源、3・25NHK特番放送決定　5大ドームツアー直後に直撃＆最新ライブ映像も | ORICON NEWS</a></div>
+</div>
+<div class='pickup'><div class="item">
+<div class="item_status">
+<span class="link_num over100">318<span>コメント</span></span>
+<span class="date date_new">1 時間前　　</span>
+<a href="http://www3.nhk.or.jp/news/html/20190315/k10011849741000.html" target="_blank" class="item_direct"> - www3.nhk.or.jp</a></div>
+<div class="item_title"><a href="/url/www3.nhk.or.jp/news/html/20190315/k10011849741000.html">「エヴァンゲリオン」コスプレ姿で住宅侵入 現金盗んだ疑い | NHKニュース</a></div>
+<a class="trimming thumbnail" href="/url/www3.nhk.or.jp/news/html/20190315/k10011849741000.html" style="width:120px;height:120px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_27d88f8f4f9b7657637da9a69cfc7f9e40002e22.jpg" width="213" height="120" onerror="this.parentNode.style.display='none'" style="left:-46px" /></a><p>人気アニメ「エヴァンゲリオン」のキャラクターのコスプレ姿で福岡県の住宅に忍び込み、現金を盗んだとして、37歳の男が逮捕・…...［<a href="http://www3.nhk.or.jp/news/html/20190315/k10011849741000.html" target="_blank">続きを読む</a>］</p>
+</div>
+</div><div class="item">
+<div class="item_status">
+<span class="link_num over3">16<span>コメント</span></span>
+<span class="date date_new">1 時間前　　</span>
+<a href="http://www.cnn.co.jp/world/35134279.html" target="_blank" class="item_direct"> - www.cnn.co.jp</a></div>
+<div class="item_title"><a href="/url/www.cnn.co.jp/world/35134279.html">CNN.co.jp : ＮＺ銃乱射、４０人死亡と首相　４人を拘束</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">10<span>コメント</span></span>
+<span class="date date_new">2 時間前　　</span>
+<a href="http://www.zakzak.co.jp/soc/news/190315/soc1903150008-n1.html" target="_blank" class="item_direct"> - www.zakzak.co.jp</a></div>
+<div class="item_title"><a href="/url/www.zakzak.co.jp/soc/news/190315/soc1903150008-n1.html">【有本香の以毒制毒】安倍首相相手に“ごっこ”するアホ議員たち…「平和憲法」クイズはこう出題せよ！ （1/2ページ） - zakzak</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">14<span>コメント</span></span>
+<span class="date date_new">2 時間前　　</span>
+<a href="http://www3.nhk.or.jp/news/html/20190315/k10011849611000.html" target="_blank" class="item_direct"> - www3.nhk.or.jp</a></div>
+<div class="item_title"><a href="/url/www3.nhk.or.jp/news/html/20190315/k10011849611000.html">小６女児２人死亡 父親が連名で手紙「これ以上調査望まず」 | NHKニュース</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">13<span>コメント</span></span>
+<span class="date date_new">2 時間前　　</span>
+<a href="http://japan.cnet.com/article/35134277/" target="_blank" class="item_direct"> - japan.cnet.com</a></div>
+<div class="item_title"><a href="/url/japan.cnet.com/article/35134277/">インスタグラム、東京にプロダクトチームを設置へ--米国外では初 - CNET Japan</a></div>
+</div>
+<div class='pickup'><div class="item">
+<div class="item_status">
+<span class="link_num over20">60<span>コメント</span></span>
+<span class="date date_new">2 時間前　　</span>
+<a href="http://mainichi.jp/articles/20190315/k00/00m/030/120000c" target="_blank" class="item_direct"> - mainichi.jp</a></div>
+<div class="item_title"><a href="/url/mainichi.jp/articles/20190315/k00/00m/030/120000c">NZモスク銃撃　死者40人に　首相発表 - 毎日新聞</a></div>
+<a class="trimming thumbnail" href="/url/mainichi.jp/articles/20190315/k00/00m/030/120000c" style="width:120px;height:120px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_0ca4390b37431a517691e7132a6a79c679831e4c.jpg" width="228" height="120" onerror="this.parentNode.style.display='none'" style="left:-54px" /></a><p>　ニュージーランド南部クライストチャーチのモスク（イスラム教礼拝所）2カ所で15日に発生した銃撃事件で、同国のジャシンダ・アーダ...［<a href="http://mainichi.jp/articles/20190315/k00/00m/030/120000c" target="_blank">続きを読む</a>］</p>
+</div>
+</div><div class="item">
+<div class="item_status">
+<span class="link_num over3">10<span>コメント</span></span>
+<span class="date date_new">2 時間前　　</span>
+<a href="http://this.kiji.is/479176804008871009" target="_blank" class="item_direct"> - this.kiji.is</a></div>
+<div class="item_title"><a href="/url/this.kiji.is/479176804008871009">NZモスク銃乱射で40人死亡　アーダン首相、テロと断定 ｜ 共同通信</a></div>
+</div>
+<div class='pickup'><div class="item">
+<div class="item_status">
+<span class="link_num over20">58<span>コメント</span></span>
+<span class="date date_new">2 時間前　　</span>
+<a href="http://this.kiji.is/479175422691869793" target="_blank" class="item_direct"> - this.kiji.is</a></div>
+<div class="item_title"><a href="/url/this.kiji.is/479175422691869793">NZ銃乱射で40人死亡と地元警察 ｜ 共同通信</a></div>
+<p></p>
+</div>
+</div><div class="item">
+<div class="item_status">
+<span class="link_num over3">17<span>コメント</span></span>
+<span class="date date_new">2 時間前　　</span>
+<a href="http://full-count.jp/2019/03/15/post319284/" target="_blank" class="item_direct"> - full-count.jp</a></div>
+<div class="item_title"><a href="/url/full-count.jp/2019/03/15/post319284/">日ハム近藤、札幌市在住の20代一般女性と入籍　球団が発表 | Full-count  | フルカウント　―野球・MLBの総合コラムサイト―</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">15<span>コメント</span></span>
+<span class="date date_new">2 時間前　　</span>
+<a href="http://www.nikkei.com/article/DGXMZO42501640V10C19A3I00000/" target="_blank" class="item_direct"> - www.nikkei.com</a></div>
+<div class="item_title"><a href="/url/www.nikkei.com/article/DGXMZO42501640V10C19A3I00000/">日銀総裁「所得と支出の好循環続く」　景気に強気演出　　:日本経済新聞</a></div>
+</div>
+<div class='pickup'><div class="item">
+<div class="item_status">
+<span class="link_num over20">69<span>コメント</span></span>
+<span class="date date_new">2 時間前　　</span>
+<a href="http://www3.nhk.or.jp/news/html/20190315/k10011849641000.html" target="_blank" class="item_direct"> - www3.nhk.or.jp</a></div>
+<div class="item_title"><a href="/url/www3.nhk.or.jp/news/html/20190315/k10011849641000.html">モスク銃乱射「少なくとも40人死亡」 ＮＺ首相 | NHKニュース</a></div>
+<a class="trimming thumbnail" href="/url/www3.nhk.or.jp/news/html/20190315/k10011849641000.html" style="width:120px;height:120px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_5e145dcee240eb81d8e07a646eea0abc53302403.jpg" width="120" height="120" onerror="this.parentNode.style.display='none'" style="left:0px" /></a><p>ニュージーランド南部のクライストチャーチにあるイスラム教の礼拝所、モスクで起きた乱射事件で、ニュージーランドのアーダーン…...［<a href="http://www3.nhk.or.jp/news/html/20190315/k10011849641000.html" target="_blank">続きを読む</a>］</p>
+</div>
+</div><div class="item">
+<div class="item_status">
+<span class="link_num over3">10<span>コメント</span></span>
+<span class="date date_new">2 時間前　　</span>
+<a href="http://www.nikkansports.com/baseball/news/201903150000452.html" target="_blank" class="item_direct"> - www.nikkansports.com</a></div>
+<div class="item_title"><a href="/url/www.nikkansports.com/baseball/news/201903150000452.html">日本ハム近藤が結婚　札幌在住の20代一般女性と - プロ野球 : 日刊スポーツ</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over20">32<span>コメント</span></span>
+<span class="date date_new">2 時間前　　</span>
+<a href="http://natalie.mu/eiga/news/324006" target="_blank" class="item_direct"> - natalie.mu</a></div>
+<div class="item_title"><a href="/url/natalie.mu/eiga/news/324006">有楽町スバル座が2019年10月をもって閉館、53年の歴史に幕 - 映画ナタリー</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over20">29<span>コメント</span></span>
+<span class="date date_new">2 時間前　　</span>
+<a href="http://www3.nhk.or.jp/news/html/20190315/k10011849571000.html" target="_blank" class="item_direct"> - www3.nhk.or.jp</a></div>
+<div class="item_title"><a href="/url/www3.nhk.or.jp/news/html/20190315/k10011849571000.html">自宅に上履き300足…幼稚園など侵入し盗んだか 38歳男を再逮捕 | NHKニュース</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">11<span>コメント</span></span>
+<span class="date date_new">2 時間前　　</span>
+<a href="http://www.asahi.com/articles/ASM3F72LVM3FUBUB00P.html" target="_blank" class="item_direct"> - www.asahi.com</a></div>
+<div class="item_title"><a href="/url/www.asahi.com/articles/ASM3F72LVM3FUBUB00P.html">秋田新幹線など車内販売、１５日で終了　乗客は惜しむ声：朝日新聞デジタル</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">12<span>コメント</span></span>
+<span class="date date_new">3 時間前　　</span>
+<a href="http://this.kiji.is/479167999705105505" target="_blank" class="item_direct"> - this.kiji.is</a></div>
+<div class="item_title"><a href="/url/this.kiji.is/479167999705105505">五輪終電、午前2時すぎまで　郊外向けは最大1時間半延長 ｜ 共同通信</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">16<span>コメント</span></span>
+<span class="date date_new">3 時間前　　</span>
+<a href="http://gigazine.net/news/20190315-iphone-saves-owner-arrow-attack/" target="_blank" class="item_direct"> - gigazine.net</a></div>
+<div class="item_title"><a href="/url/gigazine.net/news/20190315-iphone-saves-owner-arrow-attack/">iPhoneが盾になって矢の直撃を防ぐ奇跡のような事件が発生 - GIGAZINE</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over20">31<span>コメント</span></span>
+<span class="date date_new">3 時間前　　</span>
+<a href="http://www.sponichi.co.jp/baseball/news/2019/03/15/kiji/20190315s00001173218000c.html" target="_blank" class="item_direct"> - www.sponichi.co.jp</a></div>
+<div class="item_title"><a href="/url/www.sponichi.co.jp/baseball/news/2019/03/15/kiji/20190315s00001173218000c.html">日本ハム　近藤健介が結婚を発表　お相手は札幌市の20代女性― スポニチ Sponichi Annex 野球</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">12<span>コメント</span></span>
+<span class="date date_new">3 時間前　　</span>
+<a href="http://www.gamespark.jp/article/2019/03/15/88189.html" target="_blank" class="item_direct"> - www.gamespark.jp</a></div>
+<div class="item_title"><a href="/url/www.gamespark.jp/article/2019/03/15/88189.html">インドで禁止令が出ている『PUBG MOBILE』をプレイしたため、少なくとも16人が逮捕 | Game*Spark - 国内・海外ゲーム情報サイト</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">11<span>コメント</span></span>
+<span class="date date_new">3 時間前　　</span>
+<a href="http://www.nikkan-gendai.com/articles/view/news/249657" target="_blank" class="item_direct"> - www.nikkan-gendai.com</a></div>
+<div class="item_title"><a href="/url/www.nikkan-gendai.com/articles/view/news/249657">【安倍晋三】もう用済みか 安倍首相が大阪W選で維新に肩入れしない理由｜日刊ゲンダイDIGITAL</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">19<span>コメント</span></span>
+<span class="date date_new">3 時間前　　</span>
+<a href="http://www.nikkansports.com/baseball/news/201903150000372.html" target="_blank" class="item_direct"> - www.nikkansports.com</a></div>
+<div class="item_title"><a href="/url/www.nikkansports.com/baseball/news/201903150000372.html">中日根尾は５の０、３三振　異例入場制限お知らせも - プロ野球 : 日刊スポーツ</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">11<span>コメント</span></span>
+<span class="date date_new">3 時間前　　</span>
+<a href="http://mainichi.jp/articles/20190315/mog/00m/200/007000c" target="_blank" class="item_direct"> - mainichi.jp</a></div>
+<div class="item_title"><a href="/url/mainichi.jp/articles/20190315/mog/00m/200/007000c">エンタメノート：佐々木蔵之介が「浜村淳」演じる　若き日々と命名の謎は…　MBSラジオドラマ - 毎日新聞</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over20">23<span>コメント</span></span>
+<span class="date date_new">3 時間前　　</span>
+<a href="http://www3.nhk.or.jp/news/html/20190315/k10011849401000.html" target="_blank" class="item_direct"> - www3.nhk.or.jp</a></div>
+<div class="item_title"><a href="/url/www3.nhk.or.jp/news/html/20190315/k10011849401000.html">「ムーミン」のテーマパークあす開業 最寄り駅も北欧風に | NHKニュース</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">15<span>コメント</span></span>
+<span class="date date_new">3 時間前　　</span>
+<a href="http://jp.reuters.com/article/nk-missile-idJPKCN1QW0JL" target="_blank" class="item_direct"> - jp.reuters.com</a></div>
+<div class="item_title"><a href="/url/jp.reuters.com/article/nk-missile-idJPKCN1QW0JL">北朝鮮、米との核協議停止を検討　ミサイル発射中断見直しも＝高官 | ロイター</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">13<span>コメント</span></span>
+<span class="date date_new">3 時間前　　</span>
+<a href="http://www.sponichi.co.jp/entertainment/news/2019/03/15/kiji/20190315s00041000151000c.html" target="_blank" class="item_direct"> - www.sponichi.co.jp</a></div>
+<div class="item_title"><a href="/url/www.sponichi.co.jp/entertainment/news/2019/03/15/kiji/20190315s00041000151000c.html">美馬怜子　妊娠＆結婚を発表　4月に「母になります」― スポニチ Sponichi Annex 芸能</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">12<span>コメント</span></span>
+<span class="date date_new">4 時間前　　</span>
+<a href="http://www.fnn.jp/posts/00437210HDK" target="_blank" class="item_direct"> - www.fnn.jp</a></div>
+<div class="item_title"><a href="/url/www.fnn.jp/posts/00437210HDK">「旬」を迎える初ガツオ　アニサキスの食中毒被害が10倍に！その対策とは - FNN.jpプライムオンライン</a></div>
+</div>
+<div class='pickup'><div class="item">
+<div class="item_status">
+<span class="link_num over100">106<span>コメント</span></span>
+<span class="date date_new">4 時間前　　</span>
+<a href="http://www.mbs.jp/news/sp/zenkokunews/20190315/3623043.shtml" target="_blank" class="item_direct"> - www.mbs.jp</a></div>
+<div class="item_title"><a href="/url/www.mbs.jp/news/sp/zenkokunews/20190315/3623043.shtml">【現場から、】「消えた留学生」、東京福祉大の７００人所在不明に | MBS 全国のニュース</a></div>
+<a class="trimming thumbnail" href="/url/www.mbs.jp/news/sp/zenkokunews/20190315/3623043.shtml" style="width:120px;height:120px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_240a1a28cd32ea60149cf184d9cc5e3d245ac6cc.jpg" width="213" height="120" onerror="this.parentNode.style.display='none'" style="left:-46px" /></a><p>【現場から、】「消えた留学生」、東京福祉大の７００人所在不明に...［<a href="http://www.mbs.jp/news/sp/zenkokunews/20190315/3623043.shtml" target="_blank">続きを読む</a>］</p>
+</div>
+</div><div class="item">
+<div class="item_status">
+<span class="link_num over3">14<span>コメント</span></span>
+<span class="date date_new">4 時間前　　</span>
+<a href="http://www.asahi.com/articles/ASM3G5J0BM3GULFA01B.html" target="_blank" class="item_direct"> - www.asahi.com</a></div>
+<div class="item_title"><a href="/url/www.asahi.com/articles/ASM3G5J0BM3GULFA01B.html">「コンビニ店主は労働者ではない」中労委、団交権認めず：朝日新聞デジタル</a></div>
+</div>
+<div class='pickup'><div class="item">
+<div class="item_status">
+<span class="link_num over20">68<span>コメント</span></span>
+<span class="date date_new">4 時間前　　</span>
+<a href="http://www.nikkei.com/article/DGXMZO42496720V10C19A3I00000/" target="_blank" class="item_direct"> - www.nikkei.com</a></div>
+<div class="item_title"><a href="/url/www.nikkei.com/article/DGXMZO42496720V10C19A3I00000/">東証1部企業数絞り込み、3割減も　英文開示も義務化　　:日本経済新聞</a></div>
+<a class="trimming thumbnail" href="/url/www.nikkei.com/article/DGXMZO42496720V10C19A3I00000/" style="width:120px;height:120px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_dddc2a3ce2dd637f35be655677918ae3af8a8d34.jpg" width="192" height="120" onerror="this.parentNode.style.display='none'" style="left:-36px" /></a><p>東京証券取引所は、2100社超ある東証1部の上場企業数を絞り込む。時価総額の基準を引き上げ、英文開示なども義務付ける。1部の上場...［<a href="http://www.nikkei.com/article/DGXMZO42496720V10C19A3I00000/" target="_blank">続きを読む</a>］</p>
+</div>
+</div><div class="item">
+<div class="item_status">
+<span class="link_num over20">41<span>コメント</span></span>
+<span class="date date_new">4 時間前　　</span>
+<a href="http://www.sponichi.co.jp/entertainment/news/2019/03/15/kiji/20190315s00041000200000c.html" target="_blank" class="item_direct"> - www.sponichi.co.jp</a></div>
+<div class="item_title"><a href="/url/www.sponichi.co.jp/entertainment/news/2019/03/15/kiji/20190315s00041000200000c.html">NGT48冠番組が今月で終了　公式サイト発表「あらたな出会いを信じて」― スポニチ Sponichi Annex 芸能</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">10<span>コメント</span></span>
+<span class="date date_new">4 時間前　　</span>
+<a href="http://www.oricon.co.jp/news/2131630/full/" target="_blank" class="item_direct"> - www.oricon.co.jp</a></div>
+<div class="item_title"><a href="/url/www.oricon.co.jp/news/2131630/full/">ピエール瀧容疑者の冠番組『しょんないTV』打ち切り決定　4月からゴールデン昇格予定だった | ORICON NEWS</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">13<span>コメント</span></span>
+<span class="date date_new">4 時間前　　</span>
+<a href="http://www3.nhk.or.jp/news/html/20190315/k10011849391000.html" target="_blank" class="item_direct"> - www3.nhk.or.jp</a></div>
+<div class="item_title"><a href="/url/www3.nhk.or.jp/news/html/20190315/k10011849391000.html">秋篠宮悠仁さま きょう小学校を卒業 | NHKニュース</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">15<span>コメント</span></span>
+<span class="date date_new">4 時間前　　</span>
+<a href="http://www3.nhk.or.jp/news/html/20190315/k10011849451000.html" target="_blank" class="item_direct"> - www3.nhk.or.jp</a></div>
+<div class="item_title"><a href="/url/www3.nhk.or.jp/news/html/20190315/k10011849451000.html">ＮＺモスク銃乱射 “かなりの数の死者” 4人拘束 | NHKニュース</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">16<span>コメント</span></span>
+<span class="date date_new">4 時間前　　</span>
+<a href="http://www.bbc.com/japanese/47579238" target="_blank" class="item_direct"> - www.bbc.com</a></div>
+<div class="item_title"><a href="/url/www.bbc.com/japanese/47579238">ニュージーランドのモスク2カ所で銃撃、「相当数の死者」も - BBCニュース</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">19<span>コメント</span></span>
+<span class="date date_new">4 時間前　　</span>
+<a href="http://www.nikkansports.com/entertainment/akb48/news/201903150000323.html" target="_blank" class="item_direct"> - www.nikkansports.com</a></div>
+<div class="item_title"><a href="/url/www.nikkansports.com/entertainment/akb48/news/201903150000323.html">ＮＧＴの冠番組３月いっぱいで終了　公式サイト発表 - ＡＫＢ４８ : 日刊スポーツ</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">10<span>コメント</span></span>
+<span class="date date_new">4 時間前　　</span>
+<a href="http://www.cnn.co.jp/tech/35134253.html" target="_blank" class="item_direct"> - www.cnn.co.jp</a></div>
+<div class="item_title"><a href="/url/www.cnn.co.jp/tech/35134253.html">CNN.co.jp : グーグル技術者、円周率を３１兆４０００億桁まで計算　世界記録更新</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">17<span>コメント</span></span>
+<span class="date date_new">4 時間前　　</span>
+<a href="http://www.nikkei.com/article/DGXMZO42497930V10C19A3EAF000/" target="_blank" class="item_direct"> - www.nikkei.com</a></div>
+<div class="item_title"><a href="/url/www.nikkei.com/article/DGXMZO42497930V10C19A3EAF000/">北朝鮮、非核化交渉の中断警告　正恩氏が声明発表か　（写真=ロイター）　:日本経済新聞</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">16<span>コメント</span></span>
+<span class="date date_new">4 時間前　　</span>
+<a href="http://www.bengo4.com/c_5/n_9365/" target="_blank" class="item_direct"> - www.bengo4.com</a></div>
+<div class="item_title"><a href="/url/www.bengo4.com/c_5/n_9365/">コンビニオーナーの団交認めず、中労委が判断覆す　舞台は裁判へ - 弁護士ドットコム</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">14<span>コメント</span></span>
+<span class="date date_new">4 時間前　　</span>
+<a href="http://togetter.com/li/1328437" target="_blank" class="item_direct"> - togetter.com</a></div>
+<div class="item_title"><a href="/url/togetter.com/li/1328437">田舎住みの人が「映画を見に行く時間が取れない」という言葉にはこういった意味も含まれている「切ない…」 - Togetter</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">17<span>コメント</span></span>
+<span class="date date_new">4 時間前　　</span>
+<a href="http://this.kiji.is/479139431469319265" target="_blank" class="item_direct"> - this.kiji.is</a></div>
+<div class="item_title"><a href="/url/this.kiji.is/479139431469319265">北朝鮮、非核化交渉の中断を警告　外務次官会見、金氏が声明発表か ｜ 共同通信</a></div>
+</div>
+<div class='pickup'><div class="item">
+<div class="item_status">
+<span class="link_num over100">144<span>コメント</span></span>
+<span class="date date_new">5 時間前　　</span>
+<a href="http://www.nikkansports.com/entertainment/news/201903150000286.html" target="_blank" class="item_direct"> - www.nikkansports.com</a></div>
+<div class="item_title"><a href="/url/www.nikkansports.com/entertainment/news/201903150000286.html">「しょんないＴＶ」打ち切り４月ゴールデン昇格が… - 芸能 : 日刊スポーツ</a></div>
+<a class="trimming thumbnail" href="/url/www.nikkansports.com/entertainment/news/201903150000286.html" style="width:120px;height:120px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_b69d966bd4fd1d3a70efc6d32be328525c29603b.jpg" width="120" height="175" onerror="this.parentNode.style.display='none'" style="left:0px" /></a><p>ミュージシャンで俳優のピエール瀧こと瀧正則容疑者（51）が麻薬取締法違反（使用）の疑いで逮捕されたことを受けて、瀧容疑者の冠番組...［<a href="http://www.nikkansports.com/entertainment/news/201903150000286.html" target="_blank">続きを読む</a>］</p>
+</div>
+</div><div class='pickup'><div class="item">
+<div class="item_status">
+<span class="link_num over20">79<span>コメント</span></span>
+<span class="date date_new">5 時間前　　</span>
+<a href="http://www.jiji.com/jc/article?k=2019031500746&g=int" target="_blank" class="item_direct"> - www.jiji.com</a></div>
+<div class="item_title"><a href="/url/www.jiji.com/jc/article?k=2019031500746&g=int">非核化交渉、中断を検討＝米国に譲歩せず－北朝鮮次官：時事ドットコム</a></div>
+<a class="trimming thumbnail" href="/url/www.jiji.com/jc/article?k=2019031500746&g=int" style="width:120px;height:120px;"><img src="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_a3f0d6a150ed59d1fd21b2d05b3b7c03cf2c1046.jpg" width="180" height="120" onerror="this.parentNode.style.display='none'" style="left:-30px" /></a><p>【モスクワ時事】タス通信によると、北朝鮮の崔善姫外務次官は１５日、非核化をめぐる米国との交渉について、北朝鮮指導部が中断を検討し...［<a href="http://www.jiji.com/jc/article?k=2019031500746&g=int" target="_blank">続きを読む</a>］</p>
+</div>
+</div><div class="item">
+<div class="item_status">
+<span class="link_num over3">10<span>コメント</span></span>
+<span class="date date_new">5 時間前　　</span>
+<a href="http://www.cnn.co.jp/usa/35134263.html" target="_blank" class="item_direct"> - www.cnn.co.jp</a></div>
+<div class="item_title"><a href="/url/www.cnn.co.jp/usa/35134263.html">CNN.co.jp : ＮＹマフィア「ガンビーノ・ファミリー」のボス、自宅前で射殺か</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over20">22<span>コメント</span></span>
+<span class="date date_new">5 時間前　　</span>
+<a href="http://gigazine.net/news/20190315-epic-game-launcher-send-steam-data/" target="_blank" class="item_direct"> - gigazine.net</a></div>
+<div class="item_title"><a href="/url/gigazine.net/news/20190315-epic-game-launcher-send-steam-data/">人気バトルロイヤル「フォートナイト」の起動ソフトがSteamのデータをこっそり収集していたことが判明 - GIGAZINE</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">14<span>コメント</span></span>
+<span class="date date_new">5 時間前　　</span>
+<a href="http://www.nikkei.com/article/DGXMZO42497710V10C19A3X30000/" target="_blank" class="item_direct"> - www.nikkei.com</a></div>
+<div class="item_title"><a href="/url/www.nikkei.com/article/DGXMZO42497710V10C19A3X30000/">「ペイペイ」、口座登録で抽選50人に100万円　　:日本経済新聞</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over20">22<span>コメント</span></span>
+<span class="date date_new">5 時間前　　</span>
+<a href="http://jp.reuters.com/article/north-kora-nuclear-talk-idJPKCN1QW0DV" target="_blank" class="item_direct"> - jp.reuters.com</a></div>
+<div class="item_title"><a href="/url/jp.reuters.com/article/north-kora-nuclear-talk-idJPKCN1QW0DV">北朝鮮、米国との核協議停止を検討─北朝鮮外務次官＝タス通信 | ロイター</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">14<span>コメント</span></span>
+<span class="date date_new">5 時間前　　</span>
+<a href="http://www3.nhk.or.jp/tohoku-news/20190315/0004890.html" target="_blank" class="item_direct"> - www3.nhk.or.jp</a></div>
+<div class="item_title"><a href="/url/www3.nhk.or.jp/tohoku-news/20190315/0004890.html">伊達政宗の愛刀　仙台市に寄贈｜NHK 東北のニュース</a></div>
+</div>
+
+</div>
+<div class="pagenavi"><a href='/all/newitem/2'>次の50件</a> </div><br />
+<script type="text/javascript">footerbox_ad();</script>
+</div>
+</div>
+
+<div id="side_column">
+<div id="side_column_inner">
+<script type="text/javascript">sidebox_ad1()</script>
+<div id="side_flash" style="margin-bottom:4px;">
+<div class="list_title"><h2><a href="/all/newitem/">速報</a></h2></div>
+<div class="item_list_box"><div class="item">
+<div class="item_status">
+<span class="link_num over20">43<span>コメント</span></span>
+<span class="date date_new">48 分前　　　</span>
+<a href="http://natalie.mu/music/news/324043" target="_blank" class="item_direct"> - natalie.mu</a></div>
+<div class="item_title"><a href="/url/natalie.mu/music/news/324043">星野源のNHK特番OA決定、音楽制作や初5大ドームツアー語る - 音楽ナタリー</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over20">27<span>コメント</span></span>
+<span class="date date_new">55 分前　　　</span>
+<a href="http://lineblog.me/kitamura_yukiya/archives/1564397.html" target="_blank" class="item_direct"> - lineblog.me</a></div>
+<div class="item_title"><a href="/url/lineblog.me/kitamura_yukiya/archives/1564397.html">北村有起哉 公式ブログ - 夜の織部 - Powered by LINE</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over100">291<span>コメント</span></span>
+<span class="date date_new">1 時間前　　</span>
+<a href="http://www3.nhk.or.jp/news/html/20190315/k10011849741000.html" target="_blank" class="item_direct"> - www3.nhk.or.jp</a></div>
+<div class="item_title"><a href="/url/www3.nhk.or.jp/news/html/20190315/k10011849741000.html">「エヴァンゲリオン」コスプレ姿で住宅侵入 現金盗んだ疑い | NHKニュース</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">14<span>コメント</span></span>
+<span class="date date_new">1 時間前　　</span>
+<a href="http://www.cnn.co.jp/world/35134279.html" target="_blank" class="item_direct"> - www.cnn.co.jp</a></div>
+<div class="item_title"><a href="/url/www.cnn.co.jp/world/35134279.html">CNN.co.jp : ＮＺ銃乱射、４０人死亡と首相　４人を拘束</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">10<span>コメント</span></span>
+<span class="date date_new">1 時間前　　</span>
+<a href="http://www.zakzak.co.jp/soc/news/190315/soc1903150008-n1.html" target="_blank" class="item_direct"> - www.zakzak.co.jp</a></div>
+<div class="item_title"><a href="/url/www.zakzak.co.jp/soc/news/190315/soc1903150008-n1.html">【有本香の以毒制毒】安倍首相相手に“ごっこ”するアホ議員たち…「平和憲法」クイズはこう出題せよ！ （1/2ページ） - zakzak</a></div>
+</div>
+<div class="item">
+<div class="item_status">
+<span class="link_num over3">14<span>コメント</span></span>
+<span class="date date_new">1 時間前　　</span>
+<a href="http://www3.nhk.or.jp/news/html/20190315/k10011849611000.html" target="_blank" class="item_direct"> - www3.nhk.or.jp</a></div>
+<div class="item_title"><a href="/url/www3.nhk.or.jp/news/html/20190315/k10011849611000.html">小６女児２人死亡 父親が連名で手紙「これ以上調査望まず」 | NHKニュース</a></div>
+</div>
+<div class="more"><a href="/all/newitem/">速報</a></div></div>
+</div>
+<div id="side_imgs" style="margin-bottom:4px;">
+<div class="item_list_box"><div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.mbs.jp/news/sp/zenkokunews/20190315/3623043.shtml" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_240a1a28cd32ea60149cf184d9cc5e3d245ac6cc.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over100">105<span>コメント</span></span>
+<span class="date date_new">3 時間前　　</span><wbr />
+<a href="http://www.mbs.jp/news/sp/zenkokunews/20190315/3623043.shtml" target="_blank" class="item_direct"> - www.mbs.jp</a></div>
+<div class="item_title"><a href="/url/www.mbs.jp/news/sp/zenkokunews/20190315/3623043.shtml">【現場から、】「消えた留学生」、東京福祉大の７００人所在不明に | MB...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.tokyo-sports.co.jp/entame/entertainment/1309606/" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_450146d80bbd58634828aaf8c94fe0229ad836a0.jpg" width="96" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:0px;" /></a>
+<div class="item_status">
+<span class="link_num over20">95<span>コメント</span></span>
+<span class="date date_new">5 時間前　　</span><wbr />
+<a href="http://www.tokyo-sports.co.jp/entame/entertainment/1309606/" target="_blank" class="item_direct"> - www.tokyo-sports.co.jp</a></div>
+<div class="item_title"><a href="/url/www.tokyo-sports.co.jp/entame/entertainment/1309606/">ピエール瀧容疑者ブチ切れ奇行　一度スイッチ入ると豹変…警察沙汰過去も</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www3.nhk.or.jp/news/html/20190315/k10011849741000.html" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_27d88f8f4f9b7657637da9a69cfc7f9e40002e22.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over100">291<span>コメント</span></span>
+<span class="date date_new">1 時間前　　</span><wbr />
+<a href="http://www3.nhk.or.jp/news/html/20190315/k10011849741000.html" target="_blank" class="item_direct"> - www3.nhk.or.jp</a></div>
+<div class="item_title"><a href="/url/www3.nhk.or.jp/news/html/20190315/k10011849741000.html">「エヴァンゲリオン」コスプレ姿で住宅侵入 現金盗んだ疑い | NHKニュ...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/getnews.jp/archives/2133315" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_76914cbcd1ff991bc03f70be1fed916bf00224e6.jpg" width="96" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:0px;" /></a>
+<div class="item_status">
+<span class="link_num over20">61<span>コメント</span></span>
+<span class="date date_new">7 時間前　　</span><wbr />
+<a href="http://getnews.jp/archives/2133315" target="_blank" class="item_direct"> - getnews.jp</a></div>
+<div class="item_title"><a href="/url/getnews.jp/archives/2133315">「ガチヤバイ!? リアルガチでやばいかも!?」日本年金機構が軽いノリのツ...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.itmedia.co.jp/business/articles/1903/15/news030.html" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_8246600bb84b97828755ff12021c2b9667fbe8cd.jpg" width="144" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-24px;" /></a>
+<div class="item_status">
+<span class="link_num over100">213<span>コメント</span></span>
+<span class="date date_new">10 時間前　　</span><wbr />
+<a href="http://www.itmedia.co.jp/business/articles/1903/15/news030.html" target="_blank" class="item_direct"> - www.itmedia.co.jp</a></div>
+<div class="item_title"><a href="/url/www.itmedia.co.jp/business/articles/1903/15/news030.html">新幹線と飛行機の壁　「4時間」「1万円」より深刻な「1カ月前の壁」 (1...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.daily.co.jp/baseball/2019/03/15/0012148570.shtml" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_2043fed5b9e7d8807b29c2a327f222c72da351d4.jpg" width="108" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-6px;" /></a>
+<div class="item_status">
+<span class="link_num over20">47<span>コメント</span></span>
+<span class="date date_new">7 時間前　　</span><wbr />
+<a href="http://www.daily.co.jp/baseball/2019/03/15/0012148570.shtml" target="_blank" class="item_direct"> - www.daily.co.jp</a></div>
+<div class="item_title"><a href="/url/www.daily.co.jp/baseball/2019/03/15/0012148570.shtml">堀内恒夫氏、すられた財布が一転…妻激怒「本当は黙っていたいけど」と謝罪/...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www3.nhk.or.jp/news/html/20190315/k10011849611000.html" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_2cad6eaa573c268025916a64e7423e686f7ae918.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over3">14<span>コメント</span></span>
+<span class="date date_new">1 時間前　　</span><wbr />
+<a href="http://www3.nhk.or.jp/news/html/20190315/k10011849611000.html" target="_blank" class="item_direct"> - www3.nhk.or.jp</a></div>
+<div class="item_title"><a href="/url/www3.nhk.or.jp/news/html/20190315/k10011849611000.html">小６女児２人死亡 父親が連名で手紙「これ以上調査望まず」 | NHKニュ...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/gigazine.net/news/20190315-epic-game-launcher-send-steam-data/" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_6c78fbae7da27c9def205843754a418c85de6e61.jpg" width="170" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-37px;" /></a>
+<div class="item_status">
+<span class="link_num over20">22<span>コメント</span></span>
+<span class="date date_new">4 時間前　　</span><wbr />
+<a href="http://gigazine.net/news/20190315-epic-game-launcher-send-steam-data/" target="_blank" class="item_direct"> - gigazine.net</a></div>
+<div class="item_title"><a href="/url/gigazine.net/news/20190315-epic-game-launcher-send-steam-data/">人気バトルロイヤル「フォートナイト」の起動ソフトがSteamのデータをこ...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/this.kiji.is/479175422691869793" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_c00f28c466e31f1d15e5611c384933b5aed87532.jpg" width="96" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:0px;" /></a>
+<div class="item_status">
+<span class="link_num over20">57<span>コメント</span></span>
+<span class="date date_new">2 時間前　　</span><wbr />
+<a href="http://this.kiji.is/479175422691869793" target="_blank" class="item_direct"> - this.kiji.is</a></div>
+<div class="item_title"><a href="/url/this.kiji.is/479175422691869793">NZ銃乱射で40人死亡と地元警察 ｜ 共同通信</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.asahi.com/articles/ASM3H351HM3HULFA002.html" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_25883786786588c58396085f96644e10cadff10a.jpg" width="183" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-43px;" /></a>
+<div class="item_status">
+<span class="link_num over20">38<span>コメント</span></span>
+<span class="date date_new">6 時間前　　</span><wbr />
+<a href="http://www.asahi.com/articles/ASM3H351HM3HULFA002.html" target="_blank" class="item_direct"> - www.asahi.com</a></div>
+<div class="item_title"><a href="/url/www.asahi.com/articles/ASM3H351HM3HULFA002.html">自民党がＧＡＦＡヒアリング　「土下座外交だ」と自嘲：朝日新聞デジタル</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/togetter.com/li/1328278" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_01972322216ef2851f9d996ad0962ae793b72c71.jpg" width="182" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-43px;" /></a>
+<div class="item_status">
+<span class="link_num over20">59<span>コメント</span></span>
+<span class="date date_new">20 時間前　　</span><wbr />
+<a href="http://togetter.com/li/1328278" target="_blank" class="item_direct"> - togetter.com</a></div>
+<div class="item_title"><a href="/url/togetter.com/li/1328278">ピエール瀧さんに対するおぎやはぎの発言が「この視点は大事」と称賛される「...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/hamusoku.com/archives/10010088.html" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_9ee2fed98f4da149a3729c005ad470a92ef562b8.jpg" width="96" height="109" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:0px;" /></a>
+<div class="item_status">
+<span class="link_num over3">17<span>コメント</span></span>
+<span class="date date_new">18 時間前　　</span><wbr />
+<a href="http://hamusoku.com/archives/10010088.html" target="_blank" class="item_direct"> - hamusoku.com</a></div>
+<div class="item_title"><a href="/url/hamusoku.com/archives/10010088.html">やよい軒はおかずスティール防ぐ気ないんか？:ハムスター速報</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/gendai.ismedia.jp/articles/-/63519" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_94fccd2bcf0851a4c487b84891cabf1bd84a93a7.jpg" width="287" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-95px;" /></a>
+<div class="item_status">
+<span class="link_num over100">102<span>コメント</span></span>
+<span class="date date_new">11 時間前　　</span><wbr />
+<a href="http://gendai.ismedia.jp/articles/-/63519" target="_blank" class="item_direct"> - gendai.ismedia.jp</a></div>
+<div class="item_title"><a href="/url/gendai.ismedia.jp/articles/-/63519">徴用工問題「日本から韓国への制裁検討」がやむを得ない理由（長谷川 幸洋）...</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.jiji.com/jc/article?k=2019031500746&g=int" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_a3f0d6a150ed59d1fd21b2d05b3b7c03cf2c1046.jpg" width="144" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-24px;" /></a>
+<div class="item_status">
+<span class="link_num over20">78<span>コメント</span></span>
+<span class="date date_new">4 時間前　　</span><wbr />
+<a href="http://www.jiji.com/jc/article?k=2019031500746&g=int" target="_blank" class="item_direct"> - www.jiji.com</a></div>
+<div class="item_title"><a href="/url/www.jiji.com/jc/article?k=2019031500746&g=int">非核化交渉、中断を検討＝米国に譲歩せず－北朝鮮次官：時事ドットコム</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www3.nhk.or.jp/news/html/20190315/k10011849641000.html" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_5e145dcee240eb81d8e07a646eea0abc53302403.jpg" width="96" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:0px;" /></a>
+<div class="item_status">
+<span class="link_num over20">66<span>コメント</span></span>
+<span class="date date_new">2 時間前　　</span><wbr />
+<a href="http://www3.nhk.or.jp/news/html/20190315/k10011849641000.html" target="_blank" class="item_direct"> - www3.nhk.or.jp</a></div>
+<div class="item_title"><a href="/url/www3.nhk.or.jp/news/html/20190315/k10011849641000.html">モスク銃乱射「少なくとも40人死亡」 ＮＺ首相 | NHKニュース</a></div>
+</div>
+<div class="item item_media">
+<a class="trimming thumbnail" href="/url/www.itmedia.co.jp/news/articles/1903/15/news081.html" style="width:96px;height:96px;"><img class="lazy" data-original="https://s3-ap-northeast-1.amazonaws.com/img.ceron.jp/03_6de173a13293e4db34483e9d9b245a0445f49e5a.jpg" width="174" height="96" onerror="this.src='/img/no_image.gif';this.width='96';this.height='96';this.style.left='0';" style="left:-39px;" /></a>
+<div class="item_status">
+<span class="link_num over100">182<span>コメント</span></span>
+<span class="date date_new">6 時間前　　</span><wbr />
+<a href="http://www.itmedia.co.jp/news/articles/1903/15/news081.html" target="_blank" class="item_direct"> - www.itmedia.co.jp</a></div>
+<div class="item_title"><a href="/url/www.itmedia.co.jp/news/articles/1903/15/news081.html">Dropbox、無料版のアクセス端末を3台までにひっそり制限 - ITm...</a></div>
+</div>
+</div>
+</div>
+
+
+<script type="text/javascript">sidebox_ad2()</script>
+</div>
+</div>
+
+</div><!-- end field_inner -->
+</div><!-- end field-->
+
+
+<div id="footer_menu_bar" class="menu_bar">
+<div id="footer_menu_bar_inner" class="menu_bar_inner"><ul><li><a href="/">トップ</a></li><li><a href="/all/newitem/" class="selected">速報</a></li><li><a href="/all/">総合</a></li><li><a href="/society/">政治経済</a></li><li><a href="/entertainment/">エンタメ</a></li><li><a href="/sports/">スポーツ</a></li><li><a href="/itnews/">IT</a></li><li><a href="/international/">海外</a></li><li><a href="/science/">科学</a></li><li><a href="/2ch/">2ch</a></li><li><a href="/neta/">ネタ</a></li><li><a href="/movie/">動画</a></li><li><a href="/comic/">マンガ</a></li><li><a href="/ranking/day/">昨日の人気記事</a></li></ul></div>
+</div><!-- /menu_bar -->
+<div id="footer">
+<div id="footer_inner">
+<a href="/" title="ソーシャルニュース セロン"><img src="/img/logo.png" width="120px" height="24px" /></a>
+<div style="margin:12px 0 6px 0;"><a href="https://twitter.com/ceron_jp?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="true">@ceron_jpをフォロー</a><script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></div>
+<a href="/help.html">このサイトについて</a>　
+<a href="/top/?type=rss">RSS</a>　
+<a href="/inquiry.html">ご意見・お問い合わせ</a>　
+<a href="https://crea14.jp/">運営会社</a>
+<br /><br />
+</div><!-- end footer_inner-->
+</div><!-- end footer-->
+
+</div><!-- end main-->
+
+<script type="text/javascript"><!--
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-3880305-12', 'ceron.jp');
+ga('send', 'pageview');
+--></script>
+
+</body>
+</html>
