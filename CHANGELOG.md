@@ -12,4 +12,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#6737: CLIアプリに変更する](https://redmine.u6k.me/issues/6737)
     - RailsアプリケーションをGemツールに変換しました
     - パーサーを実装しました
-    - crawlのテストを実装した
+    - crawlのテストを実装しました
+    - CLI、および本番用Dockerfileを実装しました

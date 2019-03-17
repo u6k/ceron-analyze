@@ -10,6 +10,16 @@ script:
   - docker-compose build
   - docker-compose run app
 
+after_success:
+  - if [ -n "$TRAVIS_TAG" ]; then
+      docker build -t u6kapps/ceron-analyze -f Dockerfile.production .;
+      docker login -u "$DOCKER_USER" -p "$DOCKER_PASS";
+      docker tag u6kapps/ceron-analyze u6kapps/ceron-analyze:$TRAVIS_TAG;
+      docker push u6kapps/ceron-analyze;
+    else
+      echo skip docker push;
+    fi
+
 notifications:
   slack:
     secure: m+1b1rU07LBegwEEgDhDseNjAwWvf3r6SK4bV4N/3TQE1lsaguDScADt4wWTqHgW3lpEh3UpHnXm4pEanM3pcNgXvzvANEqiBEL1Qv3gVE64A+oRclDjXyxP9EnXy/50enEXzQL1O7CmGIk8LAIQVp/7lTV/0emZxwO+NACXb+vdqpWxivkZfOOqnFx0sPe8/QFA1Rb0FgFiily+kh46zA5i+vDsb8/e5MRV5A+LFb16orlU1qITTZWIvkKYMjBzcsurqoMK9V4F6PbCdV0nFyP/0Yj/ipXe7qBNDI2t2SiYJF1oP1kpb45YeGsVfJRPy1FLuhWwrurLYi8LSOUPAmqPjUEHF+2p9g/cvyXTQYwO2SYpqsCsrDx9aEzTVsgfx2gmvQ9S3QqEUeTS0vObH150DHzfaWx8zM+ClQx29AAOt4ymWo0PFhM2qaTtmMna/G5rbgea/d0uH1FDtPpQfckGFkKzVWahmd7OsirB8wyn/T/q1JYf1eFd2iAJ3Yi9t3Uje3RuihYj8vSVj1pOnCCnBNWlYQRIXnJXekkUP+J1+M7QparCSU/r+2Zp3ClDwsOnm0JwlR/bdKb0vfiltzLdTy1h4AZ1Fp+MtOzoiRAIMQBOyhCeA59o1/qT1hZyS2BonIDtr4B5zzcbNN4M7MVSi5Da7WhJFworqWUSiQ4=
