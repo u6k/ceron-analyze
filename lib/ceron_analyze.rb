@@ -1,4 +1,5 @@
 require "nokogiri"
+require "thor"
 require "crawline"
 
 require "ceron_analyze/version"
@@ -68,6 +69,34 @@ module CeronAnalyze
       end
 
       @@logger
+    end
+  end
+
+  class CLI < Thor
+    desc "version", "Display version"
+    def version
+      puts CeronAnalyze::version
+    end
+
+    desc "crawl", "Crawl ceron.jp"
+    method_option :s3_access_key
+    method_option :s3_secret_key
+    method_option :s3_region
+    method_option :s3_bucket
+    method_option :s3_endpoint
+    method_option :s3_force_path_style
+    def crawl
+      downloader = Crawline::Downloader.new("ceron-analyze/#{CeronAnalyze::VERSION} (https://github.com/u6k/ceron-analyze)")
+
+      repo = Crawline::ResourceRepository.new(s3_access_key, s3_secret_key, s3_region, s3_bucket, s3_endpoint, s3_force_path_style)
+
+      parsers = {
+        /https:\/\/ceron\.jp\/.*/ => CeronAnalyze::FeedParser
+      }
+
+      engine = Crawline::Engine.new(downloader, repo, parsers)
+
+      engine.crawl("https://ceron.jp/")
     end
   end
 end
