@@ -8,7 +8,7 @@ module CeronAnalyze
   class FeedParser < Crawline::BaseParser
     def initialize(url, data)
       @logger = AppLogger.get_logger
-      @logger.debug("FeedParser#initialize: start: url=#{url}, data.size=#{data.size}")
+      @logger.debug("FeedParser#initialize: start: url=#{url}, data.nil?=#{data.nil?}")
 
       _parse(url, data)
     end
@@ -40,7 +40,7 @@ module CeronAnalyze
         @category = category[1]
       end
 
-      doc = Nokogiri::HTML.parse(data, nil, "UTF-8")
+      doc = Nokogiri::HTML.parse(data["response_body"], nil, "UTF-8")
 
       @related_links = doc.xpath("//div[@id='menu_bar_inner']/ul/li/a").map do |a|
         @logger.debug("FeedParser#_parse: menu_bar_inner: a=#{a.inspect}")
