@@ -9,7 +9,13 @@ end
 RSpec.describe CeronAnalyze::FeedParser do
   before do
     url = "https://ceron.jp/all/"
-    data = File.open("spec/data/all.html").read
+    data = {
+      "url" => "https://ceron.jp/all/",
+      "request_method" => "GET",
+      "request_headers" => {},
+      "response_headers" => {},
+      "response_body" => File.open("spec/data/all.html").read,
+      "downloaded_timestamp" => Time.now.utc}
 
     @parser = CeronAnalyze::FeedParser.new(url, data)
   end
@@ -413,7 +419,8 @@ RSpec.describe Crawline::Engine do
       ENV["AWS_S3_REGION"],
       ENV["AWS_S3_BUCKET"],
       ENV["AWS_S3_ENDPOINT"],
-      ENV["AWS_S3_FORCE_PATH_STYLE"])
+      ENV["AWS_S3_FORCE_PATH_STYLE"],
+      nil)
 
     parsers = {
       /https:\/\/ceron\.jp\/.*/ => CeronAnalyze::FeedParser
