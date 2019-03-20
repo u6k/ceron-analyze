@@ -185,7 +185,6 @@
       <pre class="lines">
 
 
-88
 89
 90
 91
@@ -197,21 +196,22 @@
 97
 98
 99
-100</pre>
+100
+101</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ceron_analyze.rb', line 88</span>
+      <pre class="code"><span class="info file"># File 'lib/ceron_analyze.rb', line 89</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_crawl'>crawl</span>
   <span class='id identifier rubyid_downloader'>downloader</span> <span class='op'>=</span> <span class='const'>Crawline</span><span class='op'>::</span><span class='const'>Downloader</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ceron-analyze/</span><span class='embexpr_beg'>#{</span><span class='const'><span class='object_link'><a href="../CeronAnalyze.html" title="CeronAnalyze (module)">CeronAnalyze</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CeronAnalyze.html#VERSION-constant" title="CeronAnalyze::VERSION (constant)">VERSION</a></span></span><span class='embexpr_end'>}</span><span class='tstring_content'> (https://github.com/u6k/ceron-analyze)</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 
-  <span class='id identifier rubyid_repo'>repo</span> <span class='op'>=</span> <span class='const'>Crawline</span><span class='op'>::</span><span class='const'>ResourceRepository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_s3_access_key'>s3_access_key</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_s3_secret_key'>s3_secret_key</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_s3_region'>s3_region</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_s3_bucket'>s3_bucket</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_s3_endpoint'>s3_endpoint</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_s3_force_path_style'>s3_force_path_style</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_repo'>repo</span> <span class='op'>=</span> <span class='const'>Crawline</span><span class='op'>::</span><span class='const'>ResourceRepository</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_s3_access_key'>s3_access_key</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_s3_secret_key'>s3_secret_key</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_s3_region'>s3_region</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_s3_bucket'>s3_bucket</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_s3_endpoint'>s3_endpoint</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_s3_force_path_style'>s3_force_path_style</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='rparen'>)</span>
 
   <span class='id identifier rubyid_parsers'>parsers</span> <span class='op'>=</span> <span class='lbrace'>{</span>
     <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>https:\/\/ceron\.jp\/.*</span><span class='regexp_end'>/</span></span> <span class='op'>=&gt;</span> <span class='const'><span class='object_link'><a href="../CeronAnalyze.html" title="CeronAnalyze (module)">CeronAnalyze</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="FeedParser.html" title="CeronAnalyze::FeedParser (class)">FeedParser</a></span></span>
   <span class='rbrace'>}</span>
 
-  <span class='id identifier rubyid_engine'>engine</span> <span class='op'>=</span> <span class='const'>Crawline</span><span class='op'>::</span><span class='const'>Engine</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_downloader'>downloader</span><span class='comma'>,</span> <span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_parsers'>parsers</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_engine'>engine</span> <span class='op'>=</span> <span class='const'>Crawline</span><span class='op'>::</span><span class='const'>Engine</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_downloader'>downloader</span><span class='comma'>,</span> <span class='id identifier rubyid_repo'>repo</span><span class='comma'>,</span> <span class='id identifier rubyid_parsers'>parsers</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_interval'>interval</span><span class='rparen'>)</span>
 
   <span class='id identifier rubyid_engine'>engine</span><span class='period'>.</span><span class='id identifier rubyid_crawl'>crawl</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>https://ceron.jp/</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -255,7 +255,7 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Mar 20 08:01:56 2019 by
+  Generated on Wed Mar 20 08:59:55 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.18 (ruby-2.6.2).
 </div>
