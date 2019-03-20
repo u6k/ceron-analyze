@@ -85,16 +85,17 @@ module CeronAnalyze
     method_option :s3_bucket
     method_option :s3_endpoint
     method_option :s3_force_path_style
+    method_option :interval, default: 1.0
     def crawl
       downloader = Crawline::Downloader.new("ceron-analyze/#{CeronAnalyze::VERSION} (https://github.com/u6k/ceron-analyze)")
 
-      repo = Crawline::ResourceRepository.new(options.s3_access_key, options.s3_secret_key, options.s3_region, options.s3_bucket, options.s3_endpoint, options.s3_force_path_style)
+      repo = Crawline::ResourceRepository.new(options.s3_access_key, options.s3_secret_key, options.s3_region, options.s3_bucket, options.s3_endpoint, options.s3_force_path_style, nil)
 
       parsers = {
         /https:\/\/ceron\.jp\/.*/ => CeronAnalyze::FeedParser
       }
 
-      engine = Crawline::Engine.new(downloader, repo, parsers)
+      engine = Crawline::Engine.new(downloader, repo, parsers, options.interval)
 
       engine.crawl("https://ceron.jp/")
     end
